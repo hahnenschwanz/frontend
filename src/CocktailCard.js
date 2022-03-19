@@ -4,7 +4,7 @@ import "./CocktailCard.css";
 
 function CocktailCard({ name, image, imgClassNames, tags }) {
   return (
-    <div class="card">
+    <div className="card">
       <img src={image} className={imgClassNames} alt="" />
       <div>
         <h2>{ name }</h2>

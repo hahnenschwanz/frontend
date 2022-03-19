@@ -1,9 +1,8 @@
 :root {
   --bg: #06090a;
   --fg: #fffffb;
-  --accent1: #ecd627;
-  --accent2: #e74b89;
-  --accent3: #f18454;
+  --accent1: #daf05c;
+  --accent2: #a0c7dd;
 
   --s0: 4px;
   --s1: 12px;
@@ -11,7 +10,7 @@
   --s3: 32px;
 
   --border: 4px;
-  --radius: 8px;
+  --radius: 16px;
 }
 
 *,
@@ -34,6 +33,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.no-accent {
+  --accent: var(--fg);
 }
 
 .accent1 {

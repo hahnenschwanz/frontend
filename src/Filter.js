@@ -4,9 +4,11 @@ import {
   faFilter,
   faGlassWater,
   faMartiniGlass,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
+import FilterTag from "./FilterTag";
 
-function Filter() {
+function Filter({ allowSearch }) {
   return (
     <section className="filter accent2">
       <fieldset className="radio-group alcohol">
@@ -25,33 +27,21 @@ function Filter() {
           <FontAwesomeIcon icon={faGlassWater} /> Ohne
         </label>
       </fieldset>
-
       <div className="tags">
-        <div className="toggle-button">
-          <input type="checkbox" id="filter-1" />
-          <label htmlFor="filter-1">Fruchtig</label>
-        </div>
-        <div className="toggle-button">
-          <input type="checkbox" id="filter-2" />
-          <label htmlFor="filter-2">Süß</label>
-        </div>
-        <div className="toggle-button">
-          <input type="checkbox" id="filter-3" />
-          <label htmlFor="filter-3">Sauer</label>
-        </div>
-        <div className="toggle-button">
-          <input type="checkbox" id="filter-4" />
-          <label htmlFor="filter-4">Salzig</label>
-        </div>
-        <div className="toggle-button">
-          <input type="checkbox" id="filter-5" />
-          <label htmlFor="filter-5">Sahne</label>
-        </div>
+        <FilterTag tag="Fruchtig" />
+        <FilterTag tag="Süß" />
+        <FilterTag tag="Sauer" />
+        <FilterTag tag="Salzig" />
+        <FilterTag tag="Sahne" />
       </div>
-
       <span className="more-filters">
-        <FontAwesomeIcon icon={faFilter} size="lg" color="var(--accent2)" />
+        <FontAwesomeIcon icon={faFilter} size="2x" color="var(--accent2)" />
       </span>
+      {allowSearch && (
+        <span className="search">
+          <FontAwesomeIcon icon={faSearch} size="2x" color="var(--accent2)" />
+        </span>
+      )}
     </section>
   );
 }

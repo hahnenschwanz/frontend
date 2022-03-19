@@ -1,9 +1,6 @@
 header {
   --bg: #202020;
 
-  position: sticky;
-  top: 0;
-  z-index: 1;
   padding: var(--s1) var(--s3);
 
   display: flex;
@@ -20,11 +17,12 @@ header {
     flex-direction: column-reverse;
     align-items: center;
   }
+
   header > * {
     margin-bottom: var(--s0);
   }
 
-  .title {
+  .left {
     display: none;
   }
 }
@@ -35,16 +33,26 @@ header > * {
   justify-content: center;
 }
 
-header > *:nth-child(2) {
-  flex: 1.5;
-}
-
-header > *:first-child > * {
+header > .left > * {
   margin-right: auto;
 }
 
-.username {
-  font-size: x-large;
-  color: var(--accent);
+header > .center {
+  flex: 1.5;
+}
+
+header > .right > * {
   margin-left: auto;
+}
+
+.nickname {
+  font-size: x-large;
+}
+
+.register {
+  font-size: x-large;
+  padding: var(--s0) var(--s1);
+  margin-right: calc(-1 * var(--s1));
+  border-radius: var(--border);
+  cursor: pointer;
 }

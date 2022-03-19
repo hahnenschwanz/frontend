@@ -1,0 +1,8 @@
+.selected {
+  display: none;
+}
+
+.toggle-button > input:checked + label > .selected {
+  display: inline;
+}
+

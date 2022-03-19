@@ -46,6 +46,18 @@ function CocktailList() {
         image="./Cocktail-Screwdriver-Orange-icon.png"
         imgClassNames="reduce-lr"
       />
+      <CocktailCard
+        name="Screwdriver"
+        tags="Fruchtig, Süß"
+        image="./Cocktail-Screwdriver-Orange-icon.png"
+        imgClassNames="reduce-lr"
+      />
+      <CocktailCard
+        name="Screwdriver"
+        tags="Fruchtig, Süß"
+        image="./Cocktail-Screwdriver-Orange-icon.png"
+        imgClassNames="reduce-lr"
+      />
     </div>
   );
 }

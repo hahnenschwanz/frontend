@@ -32,3 +32,8 @@
   padding: var(--s1);
   cursor: pointer;
 }
+
+.search {
+  padding: var(--s1);
+  cursor: pointer;
+}

@@ -1,14 +1,16 @@
+import { faLink } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Header.css";
 
-function Header() {
+function Header({ nickname }) {
   return (
     <>
-      <header>
-        <div className="title">
-          <h1>Hahnenschwanz</h1>
+      <header className="accent2">
+        <div className="left">
+          <h1 className="title">Hahnenschwanz</h1>
         </div>
-        <div className="accent3">
-          <fieldset className="radio-group cocktail-kind">
+        <div className="center">
+          <fieldset className="radio-group">
             <input
               id="cocktails-default"
               type="radio"
@@ -26,8 +28,14 @@ function Header() {
             <label htmlFor="cocktails-user">Eigene Cocktails</label>
           </fieldset>
         </div>
-        <div>
-          <span class="username">Nick</span>
+        <div className="right">
+          {nickname ? (
+            <span className="nickname">{nickname}</span>
+          ) : (
+            <div className="register">
+              Becher registrieren <FontAwesomeIcon icon={faLink} />
+            </div>
+          )}
         </div>
       </header>
     </>

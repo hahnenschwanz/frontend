@@ -6,9 +6,9 @@ import CocktailList from "./CocktailList";
 function App() {
   return (
     <>
-      <Header />
+      <Header nickname={null} />
       <main>
-        <Filter />
+        <Filter allowSearch={false} />
         <CocktailList />
       </main>
     </>
