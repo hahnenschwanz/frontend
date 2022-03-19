@@ -1,0 +1,50 @@
+header {
+  --bg: #202020;
+
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: var(--s1) var(--s3);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: var(--s1);
+
+  white-space: nowrap;
+  background-color: var(--bg);
+}
+
+@media (max-width: 860px) {
+  header {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  header > * {
+    margin-bottom: var(--s0);
+  }
+
+  .title {
+    display: none;
+  }
+}
+
+header > * {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+header > *:nth-child(2) {
+  flex: 1.5;
+}
+
+header > *:first-child > * {
+  margin-right: auto;
+}
+
+.username {
+  font-size: x-large;
+  color: var(--accent);
+  margin-left: auto;
+}

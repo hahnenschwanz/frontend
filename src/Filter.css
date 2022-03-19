@@ -1,0 +1,34 @@
+.filter {
+  display: flex;
+
+  white-space: nowrap;
+  align-items: center;
+  margin-bottom: var(--s2);
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 48px;
+  overflow: hidden;
+}
+
+@media (max-width: 480px) {
+  .tags {
+    display: none;
+  }
+
+  .more-filters {
+    margin-left: auto;
+  }
+}
+
+.alcohol {
+  margin-right: var(--s3);
+}
+
+.more-filters {
+  padding: var(--s1);
+  cursor: pointer;
+}
