@@ -7,8 +7,8 @@ function CocktailCard({ name, image, imgClassNames, tags }) {
     <div className="card">
       <img src={image} className={imgClassNames} alt="" />
       <div>
-        <h2>{ name }</h2>
-        <div>{ tags }</div>
+        <h2>{name}</h2>
+        <div>{tags}</div>
       </div>
       <div className="go">
         <FontAwesomeIcon size="2x" icon={faPlay} />
