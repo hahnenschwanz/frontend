@@ -54,7 +54,8 @@ function Header({ nickname }) {
             <div className="connect-qr">
               <QRCode
                 size={200}
-                value="Hello, world!"
+                level="H"
+                value="https://hahnenschwanz.com/1234"
                 bgColor="var(--accent)"
                 fgColor="var(--bg)"
               />
