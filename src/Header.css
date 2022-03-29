@@ -56,3 +56,45 @@ header > .right > * {
   border-radius: var(--border);
   cursor: pointer;
 }
+
+.split {
+  --accent: var(--accent1);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: var(--s2);
+}
+
+.split > * {
+  flex-basis: 0;
+  flex-grow: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: var(--s1);
+}
+
+.split-title {
+  font-weight: bold;
+  margin-bottom: var(--s1);
+}
+
+.qr {
+  display: block;
+  padding: var(--s2);
+  background-color: var(--accent);
+  width: fit-content;
+}
+
+pre {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.code {
+  font-size: 1.4rem;
+  text-indent: 0.5em;
+  letter-spacing: 0.5em;
+}

@@ -1,0 +1,55 @@
+dialog {
+  position: absolute;
+
+  width: clamp(60vw, 400px, 95vw);
+  padding: 0;
+
+  transition-property: transform;
+  transition-duration: 100ms;
+  transition-timing-function: ease-in;
+  transform: scale(0.1);
+
+  border-color: var(--accent2);
+  border-width: var(--border);
+  border-radius: var(--radius);
+
+  color: var(--fg);
+  background-color: var(--bg);
+}
+
+dialog.animate {
+  transition-timing-function: ease-out;
+  transform: scale(1);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+dialog > div {
+  width: 100%;
+  height: 100%;
+  padding: var(--s3) var(--s2);
+
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+dialog .close {
+  position: absolute;
+  padding: var(--s2);
+  top: var(--s0);
+  right: var(--s0);
+  cursor: pointer;
+}
+
+dialog h1 {
+  margin-bottom: var(--s2);
+}
+
+dialog * {
+  user-select: none;
+}
