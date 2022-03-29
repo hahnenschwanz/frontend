@@ -58,12 +58,14 @@ header > .right > * {
 }
 
 .split {
-  --accent: var(--accent1);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
+  gap: var(--s1);
+
   width: 100%;
-  margin-bottom: var(--s2);
+
+  --accent: var(--accent1);
 }
 
 .split > * {
@@ -73,7 +75,6 @@ header > .right > * {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: var(--s1);
 }
 
 .split-title {
@@ -81,20 +82,32 @@ header > .right > * {
   margin-bottom: var(--s1);
 }
 
-.qr {
+.connect-qr {
   display: block;
   padding: var(--s2);
-  background-color: var(--accent);
+  border-radius: var(--radius);
+
   width: fit-content;
+
+  background-color: var(--accent);
 }
 
-pre {
+.connect-manual {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+}
+
+.connect-link {
+  font-family: monospace;
   margin: 0;
   font-size: 1rem;
 }
 
-.code {
-  font-size: 1.4rem;
+.connect-code {
+  font-family: monospace;
+  font-size: 1.2rem;
   text-indent: 0.5em;
   letter-spacing: 0.5em;
+  margin-top: var(--s1);
 }

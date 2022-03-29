@@ -51,24 +51,26 @@ function Header({ nickname }) {
         <div className="split">
           <div>
             <div className="split-title">Scanne diesen QR-Code</div>
-            <div className="qr">
+            <div className="connect-qr">
               <QRCode
-                size={192}
+                size={200}
                 value="Hello, world!"
                 bgColor="var(--accent)"
+                fgColor="var(--bg)"
               />
             </div>
           </div>
           <div>
             <div className="split-title">…oder öffne</div>
-            <div className="split-content">
-              <pre>https://hahnenschwanz.com/</pre>
-              <p>
+            <div className="connect-manual">
+              <span className="connect-link">https://hahnenschwanz.com/</span>
+              <span>
                 klick dort auf <em>Becher registrieren</em> (oder auf deinen
-                Namen um einen weiteren Becher hinzuzufügen), und gib diesen
-                Code ein
-              </p>
-              <pre className="code">1234</pre>
+                Namen um
+                <br />
+                einen weiteren Becher hinzuzufügen), und gib diesen Code ein
+              </span>
+              <span className="connect-code">1234</span>
             </div>
           </div>
         </div>
