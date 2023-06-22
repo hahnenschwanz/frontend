@@ -1,24 +1,64 @@
-import { faLink } from "@fortawesome/free-solid-svg-icons";
+import { faLink, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import Dialog from "./Dialog";
 import "./Header.css";
+import User from "./model/User";
 
 interface HeaderProps {
-  nickname: string | null;
+  cupId: string | null;
+  user: User | null;
+  isMachine: boolean;
 }
 
-function Header({ nickname }: HeaderProps) {
+interface UserProps {
+  cupId: string | null;
+  user: User | null;
+  isMachine: boolean;
+  openRegisterDialog: () => {};
+}
+
+function UserInfo({ cupId, user, isMachine, openRegisterDialog }: UserProps) {
+  if (isMachine) {
+    if (cupId === null) {
+      return null;
+    }
+    if (user === null) {
+      return (
+        <div className="register" onClick={() => openRegisterDialog()}>
+          Becher registrieren <FontAwesomeIcon icon={faLink} />
+        </div>
+      );
+    }
+
+    return (
+      <div className="nickname">
+        {user.name} <FontAwesomeIcon icon={faUser} />
+      </div>
+    );
+  } else {
+    return null;
+  }
+}
+
+function Header({ cupId, user, isMachine }: HeaderProps) {
   const [register, setRegister] = useState(false);
+
+  useEffect(() => {
+    if (cupId === null || user !== null) {
+      setRegister(false);
+    }
+  }, [cupId, user]);
 
   return (
     <>
       <header className="accent2">
-        <div className="left">
+        <div className="title">
           <h1 className="title">Hahnenschwanz</h1>
         </div>
-        <div className="center">
+        <div>
+          {/*
           <fieldset className="radio-group">
             <input
               id="cocktails-default"
@@ -36,15 +76,15 @@ function Header({ nickname }: HeaderProps) {
             />
             <label htmlFor="cocktails-user">Eigene Cocktails</label>
           </fieldset>
+          */}
         </div>
-        <div className="right">
-          {nickname ? (
-            <span className="nickname">{nickname}</span>
-          ) : (
-            <div className="register" onClick={() => setRegister(true)}>
-              Becher registrieren <FontAwesomeIcon icon={faLink} />
-            </div>
-          )}
+        <div className="userinfo">
+          <UserInfo
+            isMachine={isMachine}
+            cupId={cupId}
+            user={user}
+            openRegisterDialog={() => [setRegister(true)]}
+          />
         </div>
       </header>
       <Dialog
@@ -59,7 +99,7 @@ function Header({ nickname }: HeaderProps) {
               <QRCode
                 size={200}
                 level="H"
-                value="https://hahnenschwanz.com/1234"
+                value={`https://hahnenschwanz.com/${cupId}`}
                 bgColor="var(--accent)"
                 fgColor="var(--bg)"
               />
@@ -75,7 +115,7 @@ function Header({ nickname }: HeaderProps) {
                 <br />
                 einen weiteren Becher hinzuzufügen), und gib diesen Code ein
               </span>
-              <span className="connect-code">1234</span>
+              <span className="connect-code">{cupId}</span>
             </div>
           </div>
         </div>

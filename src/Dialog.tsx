@@ -33,6 +33,16 @@ function Dialog({ open, title, children, onDismiss }: DialogProps) {
     }
   }, [open, dialogRef]);
 
+  const dismiss = useCallback(
+    (event: SyntheticEvent<Element, Event>) => {
+      event.preventDefault();
+      if (onDismiss) {
+        onDismiss();
+      }
+    },
+    [onDismiss]
+  );
+
   const onClick = useCallback(
     (event: SyntheticEvent<Element, Event>) => {
       if (event.target === dialogRef.current) {
@@ -43,7 +53,7 @@ function Dialog({ open, title, children, onDismiss }: DialogProps) {
   );
 
   return (
-    <dialog ref={dialogRef} open onClick={onClick}>
+    <dialog ref={dialogRef} open onClick={onClick} onCancel={dismiss}>
       <div>
         <h1>{title}</h1>
         <FontAwesomeIcon

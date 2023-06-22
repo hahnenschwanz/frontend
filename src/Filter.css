@@ -7,7 +7,7 @@
   margin-bottom: var(--s2);
 }
 
-.tags {
+.filter > .tags {
   display: flex;
   align-items: center;
   flex-wrap: wrap;

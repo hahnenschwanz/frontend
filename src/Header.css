@@ -4,7 +4,7 @@ header {
   padding: var(--s1) var(--s3);
 
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   gap: var(--s1);
 
@@ -12,49 +12,52 @@ header {
   background-color: var(--bg);
 }
 
+header > * {
+  flex: 1;
+}
+
 @media (max-width: 860px) {
   header {
     flex-direction: column-reverse;
-    align-items: center;
   }
 
-  header > * {
-    margin-bottom: var(--s0);
-  }
-
-  .left {
+  .title {
     display: none;
   }
 }
 
-header > * {
+.userinfo {
   display: flex;
-  flex: 1;
-  justify-content: center;
+  justify-content: flex-end;
+  font-size: 1.5rem;
 }
 
-header > .left > * {
-  margin-right: auto;
-}
-
-header > .center {
-  flex: 1.5;
-}
-
-header > .right > * {
-  margin-left: auto;
-}
-
-.nickname {
-  font-size: x-large;
+.userinfo > * {
+  padding: var(--s0) var(--s1);
+  margin-inline: calc(-1 * var(--s1));
 }
 
 .register {
-  font-size: x-large;
-  padding: var(--s0) var(--s1);
-  margin-right: calc(-1 * var(--s1));
-  border-radius: var(--border);
   cursor: pointer;
+  animation: 0.5s horizontal-shaking 2;
+}
+
+@keyframes horizontal-shaking {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .split {

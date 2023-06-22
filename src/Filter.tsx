@@ -4,15 +4,10 @@ import {
   faFilter,
   faGlassWater,
   faMartiniGlass,
-  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import FilterTag from "./FilterTag";
 
-interface FilterProps {
-  allowSearch: boolean;
-}
-
-function Filter({ allowSearch }: FilterProps) {
+function Filter() {
   return (
     <section className="filter accent2">
       <fieldset className="radio-group alcohol">
@@ -41,11 +36,6 @@ function Filter({ allowSearch }: FilterProps) {
       <span className="more-filters">
         <FontAwesomeIcon icon={faFilter} size="2x" color="var(--accent2)" />
       </span>
-      {allowSearch && (
-        <span className="search">
-          <FontAwesomeIcon icon={faSearch} size="2x" color="var(--accent2)" />
-        </span>
-      )}
     </section>
   );
 }
