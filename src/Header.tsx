@@ -5,7 +5,11 @@ import QRCode from "react-qr-code";
 import Dialog from "./Dialog";
 import "./Header.css";
 
-function Header({ nickname }) {
+interface HeaderProps {
+  nickname: string | null;
+}
+
+function Header({ nickname }: HeaderProps) {
   const [register, setRegister] = useState(false);
 
   return (

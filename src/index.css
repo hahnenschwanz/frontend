@@ -30,6 +30,11 @@ body {
   color: var(--fg);
 }
 
+img {
+  object-fit: contain;
+  max-width: 100%;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

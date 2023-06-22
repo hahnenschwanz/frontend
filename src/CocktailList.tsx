@@ -7,56 +7,56 @@ function CocktailList() {
       <CocktailCard
         name="Bloody Mary"
         tags="Süß, Sauer, Blutig, Vegan"
-        image="./Bloody-Mary-icon.png"
-        imgClassNames="reduce-lr"
+        imageUrl="./Bloody-Mary-icon.png"
+        imageClassNames="reduce-lr"
       />
       <CocktailCard
         name="Long Island Iced Tea"
         tags="Sauer"
-        image="./Long-Island-Iced-Tea-icon.png"
-        imgClassNames="reduce-lr reduce-top"
+        imageUrl="./Long-Island-Iced-Tea-icon.png"
+        imageClassNames="reduce-lr reduce-top"
       />
       <CocktailCard
         name="Bloody Mary"
         tags="Süß, Sauer, Blutig, Vegan"
-        image="./Bloody-Mary-icon.png"
-        imgClassNames="reduce-lr"
+        imageUrl="./Bloody-Mary-icon.png"
+        imageClassNames="reduce-lr"
       />
       <CocktailCard
         name="Bloody Mary"
         tags="Süß, Sauer, Blutig, Vegan"
-        image="./Bloody-Mary-icon.png"
-        imgClassNames="reduce-lr"
+        imageUrl="./Bloody-Mary-icon.png"
+        imageClassNames="reduce-lr"
       />
       <CocktailCard
         name="Bloody Mary"
         tags="Süß, Sauer, Blutig, Vegan"
-        image="./Bloody-Mary-icon.png"
-        imgClassNames="reduce-lr"
+        imageUrl="./Bloody-Mary-icon.png"
+        imageClassNames="reduce-lr"
       />
       <CocktailCard
         name="Bloody Mary"
         tags="Süß, Sauer, Blutig, Vegan"
-        image="./Bloody-Mary-icon.png"
-        imgClassNames="reduce-lr"
+        imageUrl="./Bloody-Mary-icon.png"
+        imageClassNames="reduce-lr"
       />
       <CocktailCard
         name="Screwdriver"
         tags="Fruchtig, Süß"
-        image="./Cocktail-Screwdriver-Orange-icon.png"
-        imgClassNames="reduce-lr"
+        imageUrl="./Cocktail-Screwdriver-Orange-icon.png"
+        imageClassNames="reduce-lr"
       />
       <CocktailCard
         name="Screwdriver"
         tags="Fruchtig, Süß"
-        image="./Cocktail-Screwdriver-Orange-icon.png"
-        imgClassNames="reduce-lr"
+        imageUrl="./Cocktail-Screwdriver-Orange-icon.png"
+        imageClassNames="reduce-lr"
       />
       <CocktailCard
         name="Screwdriver"
         tags="Fruchtig, Süß"
-        image="./Cocktail-Screwdriver-Orange-icon.png"
-        imgClassNames="reduce-lr"
+        imageUrl="./Cocktail-Screwdriver-Orange-icon.png"
+        imageClassNames="reduce-lr"
       />
     </div>
   );

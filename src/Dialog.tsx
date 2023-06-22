@@ -1,13 +1,29 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCallback, useEffect, useRef } from "react";
+import {
+  ReactNode,
+  SyntheticEvent,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import "./Dialog.css";
 
-function Dialog({ open, title, children, onDismiss }) {
-  let dialogRef = useRef(null);
+interface DialogProps {
+  open: boolean;
+  title: string;
+  children: ReactNode;
+  onDismiss: () => void;
+}
+
+function Dialog({ open, title, children, onDismiss }: DialogProps) {
+  let dialogRef = useRef<HTMLDialogElement | null>(null);
 
   useEffect(() => {
     const dialog = dialogRef.current;
+    if (!dialog) {
+      return;
+    }
     if (open && !dialog.open) {
       dialog.showModal();
       dialog.classList.add("animate");
@@ -18,12 +34,12 @@ function Dialog({ open, title, children, onDismiss }) {
   }, [open, dialogRef]);
 
   const onClick = useCallback(
-    (event) => {
+    (event: SyntheticEvent<Element, Event>) => {
       if (event.target === dialogRef.current) {
         onDismiss();
       }
     },
-    [dialogRef]
+    [onDismiss]
   );
 
   return (

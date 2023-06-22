@@ -2,7 +2,11 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./FilterTag.css";
 
-function FilterTag({ tag }) {
+interface FilterTagProps {
+  tag: string;
+}
+
+function FilterTag({ tag }: FilterTagProps) {
   const id = "filter-" + tag.toLowerCase().replace(" ", "-");
 
   return (

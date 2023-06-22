@@ -15,7 +15,6 @@
 }
 
 .card > img {
-  object-fit: contain;
   filter: drop-shadow(2px 2px) drop-shadow(-2px 2px) drop-shadow(2px -2px)
     drop-shadow(-2px -2px);
 }

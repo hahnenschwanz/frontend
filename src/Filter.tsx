@@ -8,7 +8,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import FilterTag from "./FilterTag";
 
-function Filter({ allowSearch }) {
+interface FilterProps {
+  allowSearch: boolean;
+}
+
+function Filter({ allowSearch }: FilterProps) {
   return (
     <section className="filter accent2">
       <fieldset className="radio-group alcohol">
