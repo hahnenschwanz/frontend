@@ -26,6 +26,11 @@ header > * {
   }
 }
 
+header.minimal {
+  color: black;
+  background-color: var(--accent);
+}
+
 .userinfo {
   display: flex;
   justify-content: flex-end;

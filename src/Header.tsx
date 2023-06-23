@@ -1,15 +1,16 @@
-import { faLink, faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-import QRCode from "react-qr-code";
-import Dialog from "./Dialog";
-import "./Header.css";
-import User from "./model/User";
+import { faLink, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from 'react';
+import QRCode from 'react-qr-code';
+import Dialog from './Dialog';
+import './Header.css';
+import User from './model/User';
 
 interface HeaderProps {
   cupId: string | null;
   user: User | null;
   isMachine: boolean;
+  minimal?: boolean;
 }
 
 interface UserProps {
@@ -42,7 +43,7 @@ function UserInfo({ cupId, user, isMachine, openRegisterDialog }: UserProps) {
   }
 }
 
-function Header({ cupId, user, isMachine }: HeaderProps) {
+function Header({ cupId, user, isMachine, minimal }: HeaderProps) {
   const [register, setRegister] = useState(false);
 
   useEffect(() => {
@@ -53,7 +54,7 @@ function Header({ cupId, user, isMachine }: HeaderProps) {
 
   return (
     <>
-      <header className="accent2">
+      <header className={`accent1 ${minimal ? 'minimal' : ''}`}>
         <div className="title">
           <h1 className="title">Hahnenschwanz</h1>
         </div>

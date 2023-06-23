@@ -31,7 +31,7 @@ function Filter() {
         <FilterTag tag="Süß" />
         <FilterTag tag="Sauer" />
         <FilterTag tag="Salzig" />
-        <FilterTag tag="Sahne" />
+        <FilterTag tag="Ohne Sahne" />
       </div>
       <span className="more-filters">
         <FontAwesomeIcon icon={faFilter} size="2x" color="var(--accent2)" />

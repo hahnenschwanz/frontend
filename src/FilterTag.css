@@ -1,8 +1,4 @@
-.selected {
-  display: none;
+.icon {
+  display: inline-block;
+  min-inline-size: 1rem;
 }
-
-.toggle-button > input:checked + label > .selected {
-  display: inline;
-}
-

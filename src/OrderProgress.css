@@ -12,18 +12,22 @@
 .cocktail {
   display: flex;
   flex-direction: row;
+	align-items: flex-start;
 
   color: var(--bg);
 }
 
 .cocktail > img {
+  display: block;
   width: 20%;
+	margin-top: var(--s2);
+	flex: 0 0 auto;
   filter: drop-shadow(2px 2px) drop-shadow(-2px 2px) drop-shadow(2px -2px)
     drop-shadow(-2px -2px);
 }
 
 .cocktail-info > h2 {
-  font-size: 7rem;
+  font-size: 8rem;
   font-weight: 900;
 }
 

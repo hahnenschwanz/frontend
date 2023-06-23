@@ -1,6 +1,6 @@
 export default interface Order {
   id: string;
   cup: string;
-  cocktail: string;
+  cocktailId: string;
   timestamp: Date;
 }
