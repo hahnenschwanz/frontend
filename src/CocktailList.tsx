@@ -1,6 +1,6 @@
 import CocktailCard from './CocktailCard';
 import './CocktailList.css';
-import Cocktail from './model/Cocktail';
+import { Cocktail } from './model/Cocktail';
 
 interface CocktailListProps {
   cocktails: Cocktail[];

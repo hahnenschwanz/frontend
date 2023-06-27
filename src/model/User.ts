@@ -1,5 +1,8 @@
-export default interface User {
-  id: string;
+export type UserId = string;
+export type CupId = string;
+
+export interface User {
+  id: UserId;
   name: string;
-  cups: string[];
+  cups: CupId[];
 }

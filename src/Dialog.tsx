@@ -53,7 +53,7 @@ function Dialog({ open, title, children, onDismiss }: DialogProps) {
   );
 
   return (
-    <dialog ref={dialogRef} open onClick={onClick} onCancel={dismiss}>
+    <dialog ref={dialogRef} onClick={onClick} onCancel={dismiss}>
       <div>
         <h1>{title}</h1>
         <FontAwesomeIcon

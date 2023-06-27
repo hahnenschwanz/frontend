@@ -1,11 +1,11 @@
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './CocktailCard.css';
-import Cocktail from './model/Cocktail';
+import { Cocktail } from './model/Cocktail';
 
 interface CocktailCardProps {
   cocktail: Cocktail;
-	orderCocktail: (cocktailId: string) => void;
+  orderCocktail: (cocktailId: string) => void;
 }
 
 function CocktailCard({ cocktail, orderCocktail }: CocktailCardProps) {

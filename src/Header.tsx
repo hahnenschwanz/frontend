@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
 import Dialog from './Dialog';
 import './Header.css';
-import User from './model/User';
+import { User } from './model/User';
 
 interface HeaderProps {
   cupId: string | null;

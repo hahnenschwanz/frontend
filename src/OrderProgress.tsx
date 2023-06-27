@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import Cocktail from './model/Cocktail';
-import Order from './model/Order';
+import { Cocktail } from './model/Cocktail';
+import { Order } from './model/Order';
 import './OrderProgress.css';
 
 interface OrderProgressProps {
@@ -21,8 +21,6 @@ function OrderProgress({ order, cocktail, progress }: OrderProgressProps) {
     }, 7000);
     return () => clearInterval(interval);
   }, []);
-
-  console.log(message);
 
   return (
     <main className="orderstate">

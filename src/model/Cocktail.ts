@@ -1,5 +1,7 @@
-export default interface Cocktail {
-  id: string;
+export type CocktailId = string;
+
+export interface Cocktail {
+  id: CocktailId;
   name: string;
   imageUrl: string;
   tags: string[];
