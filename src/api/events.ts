@@ -81,8 +81,6 @@ const useEvents: () => MachineEvent | null = () => {
     }, 100);
   }, []);
 
-  console.log(mockMessage);
-
   return mockMessage;
 };
 

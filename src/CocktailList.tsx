@@ -1,6 +1,6 @@
-import CocktailCard from './CocktailCard';
-import './CocktailList.css';
-import { Cocktail } from './model/Cocktail';
+import CocktailCard from "./CocktailCard";
+import "./CocktailList.css";
+import { Cocktail } from "./model/Cocktail";
 
 interface CocktailListProps {
   cocktails: Cocktail[];
@@ -10,15 +10,22 @@ interface CocktailListProps {
 function CocktailList({ cocktails, orderCocktail }: CocktailListProps) {
   return (
     <div className="cocktail-list accent1">
-      {cocktails.map((cocktail) => {
-        return (
-          <CocktailCard
-            key={cocktail.id}
-            cocktail={cocktail}
-            orderCocktail={orderCocktail}
-          />
-        );
-      })}
+      {cocktails.map((cocktail) => (
+        <CocktailCard
+          key={cocktail.id}
+          cocktail={cocktail}
+          orderCocktail={orderCocktail}
+        />
+      ))}
+      {/* make the grid behave as i want */}
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   );
 }
