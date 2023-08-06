@@ -7,11 +7,14 @@ import CupChangeEvent from "./model/CupChangeEvent";
 import OrderState from "./model/OrderState";
 import { Cocktail } from "./model/Cocktail";
 import { getCocktails } from "./api/cocktail";
-import { useMachineEvent } from "./api/events";
 import OrderChangeEvent from "./model/OrderChangeEvent";
 import { abort, order } from "./api/order";
 import FilteredCocktailList from "./FilteredCocktailList";
 import ErrorView from "./ErrorView";
+import {
+  useMachineEvent as machineEvent,
+  useMockMachineEvent as mockMachineEvent,
+} from "./api/events";
 
 const wrapError = (message: string, error: any) =>
   new Error(message, { cause: error });
@@ -46,18 +49,20 @@ function App() {
     loadCocktails();
   }, []);
 
-  const machineEvent = useMachineEvent(setError);
+  const event = process.env.REACT_APP_MOCK
+    ? mockMachineEvent(setError)
+    : machineEvent(setError);
 
   useEffect(() => {
-    if (machineEvent === null) {
+    if (event === null) {
       return;
     }
-    if (machineEvent.type === "CupChange") {
-      const cupChange = machineEvent.body as CupChangeEvent;
+    if (event.type === "CupChange") {
+      const cupChange = event.body as CupChangeEvent;
       setUser(cupChange.user);
       setCupId(cupChange.cup);
-    } else if (machineEvent.type === "OrderChange") {
-      const orderChange = machineEvent.body as OrderChangeEvent;
+    } else if (event.type === "OrderChange") {
+      const orderChange = event.body as OrderChangeEvent;
       setOrderState(
         orderChange.order === null
           ? null
@@ -67,7 +72,7 @@ function App() {
             }
       );
     }
-  }, [machineEvent]);
+  }, [event]);
 
   const orderCocktail = async (cocktailId: string) => {
     try {
@@ -109,7 +114,7 @@ function App() {
         <OrderProgress
           cocktail={cocktails[orderState.cocktailId]}
           progress={orderState.progress}
-					abortOrder={abortOrder}
+          abortOrder={abortOrder}
         />
       ) : (
         <main>

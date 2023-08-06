@@ -36,10 +36,12 @@ const mockCocktails = [
 ];
 
 const getCocktails: () => Promise<Cocktail[]> = async () => {
-  await new Promise((resolve) => setTimeout(() => resolve(null), 1000));
-  // const response = await fetch('/cocktail');
-  // return await response.json();
-  return mockCocktails;
+  if (process.env.REACT_APP_MOCK) {
+    await new Promise((resolve) => setTimeout(() => resolve(null), 1000));
+    return mockCocktails;
+  }
+  const response = await fetch("/cocktail");
+  return await response.json();
 };
 
 export { getCocktails };

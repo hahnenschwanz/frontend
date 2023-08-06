@@ -19,11 +19,12 @@ const RecursiveErrors = ({ error }: { error: Error }) => {
 
 function ErrorView({ error }: ErrorViewProps) {
   useEffect(() => {
+    console.log("start timer");
     const timeout = setTimeout(() => {
       window.location.reload();
     }, 10000);
     return () => clearTimeout(timeout);
-  });
+  }, []);
 
   return (
     <main className="fullscreen-error colors-error">

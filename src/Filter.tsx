@@ -13,7 +13,7 @@ import TagFilterState from "./model/TagFilterState";
 interface FilterProps {
   tags: string[];
   setFilter: (filter: (cocktail: Cocktail) => boolean) => void;
-  setResetFilter: (resetFilters: () => void) => void;
+  setResetFilter: (resetFilters: (kind: "tags" | "all") => void) => void;
 }
 
 function toRecord<K extends string | number | symbol, V>(
@@ -33,8 +33,10 @@ function Filter({ tags, setFilter, setResetFilter }: FilterProps) {
 
   useEffect(() => {
     setResetFilter(() => {
-      return () => {
-				console.log('reset filter called');
+      return (kind: "tags" | "all") => {
+        if (kind === "all") {
+          setAlcoholic(true);
+        }
         setTagStates(toRecord(tags, () => TagFilterState.UNSPECIFIED));
       };
     });
@@ -70,7 +72,7 @@ function Filter({ tags, setFilter, setResetFilter }: FilterProps) {
           id="alcohol-yes"
           name="alcohol"
           checked={alcoholic}
-					onChange={() => {}}
+          onChange={() => {}}
           onClick={() => setAlcoholic((alcoholic) => !alcoholic)}
         />
         <label htmlFor="alcohol-yes">
@@ -81,7 +83,7 @@ function Filter({ tags, setFilter, setResetFilter }: FilterProps) {
           type="radio"
           name="alcohol"
           checked={!alcoholic}
-					onChange={() => {}}
+          onChange={() => {}}
           onClick={() => setAlcoholic((alcoholic) => !alcoholic)}
         />
         <label htmlFor="alcohol-no">

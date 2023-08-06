@@ -35,7 +35,7 @@ function OrderProgress({ cocktail, progress, abortOrder }: OrderProgressProps) {
       <div className="state">
         <span>{message}</span>
         <div className="progress-container">
-          <button className="accent-error" onClick={abortOrder}>
+          <button className="accent-error bordered" onClick={abortOrder}>
             Stopp <FontAwesomeIcon icon={faXmark} size="lg" />
           </button>
           <div className="progress-bar">

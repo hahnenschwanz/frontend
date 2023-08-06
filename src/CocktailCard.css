@@ -17,6 +17,7 @@
 .card > img {
   filter: drop-shadow(2px 2px) drop-shadow(-2px 2px) drop-shadow(2px -2px)
     drop-shadow(-2px -2px);
+	margin-inline: -8%;
 }
 
 .go {

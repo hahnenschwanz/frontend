@@ -24,7 +24,9 @@ function FilteredCocktailList({
   const [filter, setFilter] = useState<(cocktail: Cocktail) => boolean>(
     () => () => false
   );
-  const [resetFilter, setResetFilter] = useState<() => void>(() => () => {});
+  const [resetFilter, setResetFilter] = useState<
+    (kind: "tags" | "all") => void
+  >(() => () => {});
 
   const cocktailList = useMemo(
     () => Object.values(cocktails || {}),
@@ -61,6 +63,11 @@ function FilteredCocktailList({
     );
   }
 
+  const orderCocktailResetFilters = (cocktailId: string) => {
+    resetFilter('all');
+    orderCocktail(cocktailId);
+  };
+
   return (
     <>
       <Filter
@@ -71,14 +78,14 @@ function FilteredCocktailList({
       {visibleCocktails.length === 0 ? (
         <div className="filtered-cocktails-info">
           <div>Verrückter Mix, aber so einen Cocktail gibt es leider nicht</div>
-          <button className="accent1" onClick={resetFilter}>
+          <button className="accent1" onClick={() => resetFilter('tags')}>
             Filter zurücksetzen
           </button>
         </div>
       ) : (
         <CocktailList
           cocktails={visibleCocktails}
-          orderCocktail={orderCocktail}
+          orderCocktail={orderCocktailResetFilters}
         />
       )}
     </>

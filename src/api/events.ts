@@ -1,4 +1,4 @@
-// import useWebSocket from 'react-use-websocket';
+import useWebSocket from "react-use-websocket";
 import MachineEvent from "../model/MachineEvent";
 import { useEffect, useState } from "react";
 import { mockFinishOrder, mockOrder } from "./order";
@@ -6,26 +6,9 @@ import { mockFinishOrder, mockOrder } from "./order";
 let mockInterval: NodeJS.Timer | null = null;
 let mockProgress = 0;
 
-const useMachineEvent = (setError: (error: Error) => void) => {
-  // const { lastJsonMessage } = useWebSocket(
-  //   `wss://${window.location.host}/events`,
-  //   {
-  //     onClose: (event: CloseEvent) => {
-  //       const message = event.wasClean
-  //         ? "Websocket-Verbindung wurde geschlossen"
-  //         : "Websocket-Verbindung wurde unterbrochen";
-  //       const closeError = new Error(
-  //         `Fehlercode: ${event.code}, Grund: "${event.reason}"`
-  //       );
-  //       setError(new Error(message, { cause: closeError }));
-  //     },
-  //     onError: () => {
-  //       setError(new Error("Problem mit der Websocket-Verbindung"));
-  //     },
-  //   }
-  // );
-  // return lastJsonMessage as any as MachineEvent | null;
-
+const useMockMachineEvent: (
+  setError: (error: Error) => void
+) => MachineEvent | null = (setError: (error: Error) => void) => {
   const [mockMessage, setMockMessage] = useState<MachineEvent | null>(null);
 
   useEffect(() => {
@@ -97,4 +80,27 @@ const useMachineEvent = (setError: (error: Error) => void) => {
   return mockMessage;
 };
 
-export { useMachineEvent };
+const useMachineEvent: (
+  setError: (error: Error) => void
+) => MachineEvent | null = (setError: (error: Error) => void) => {
+  const { lastJsonMessage } = useWebSocket(
+    `wss://${window.location.host}/events`,
+    {
+      onClose: (event: CloseEvent) => {
+        const message = event.wasClean
+          ? "Websocket-Verbindung wurde geschlossen"
+          : "Websocket-Verbindung wurde unterbrochen";
+        const closeError = new Error(
+          `Fehlercode: ${event.code}, Grund: "${event.reason}"`
+        );
+        setError(new Error(message, { cause: closeError }));
+      },
+      onError: () => {
+        setError(new Error("Problem mit der Websocket-Verbindung"));
+      },
+    }
+  );
+  return lastJsonMessage as any as MachineEvent | null;
+};
+
+export { useMachineEvent, useMockMachineEvent };
