@@ -10,7 +10,7 @@ interface HeaderProps {
   cupId: string | null;
   user: User | null;
   isMachine: boolean;
-  minimal?: boolean;
+  style?: string;
 }
 
 interface UserProps {
@@ -35,7 +35,7 @@ function UserInfo({ cupId, user, isMachine, openRegisterDialog }: UserProps) {
 
     return (
       <div className="nickname">
-        {user.name} <FontAwesomeIcon icon={faUser} />
+        {user.name || 'Anon'} <FontAwesomeIcon icon={faUser} />
       </div>
     );
   } else {
@@ -43,7 +43,7 @@ function UserInfo({ cupId, user, isMachine, openRegisterDialog }: UserProps) {
   }
 }
 
-function Header({ cupId, user, isMachine, minimal }: HeaderProps) {
+function Header({ cupId, user, isMachine, style }: HeaderProps) {
   const [register, setRegister] = useState(false);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ function Header({ cupId, user, isMachine, minimal }: HeaderProps) {
 
   return (
     <>
-      <header className={`accent1 ${minimal ? 'minimal' : ''}`}>
+      <header className={`accent1 ${style}`}>
         <div className="title">
           <h1 className="title">Hahnenschwanz</h1>
         </div>

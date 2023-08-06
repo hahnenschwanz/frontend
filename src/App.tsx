@@ -1,24 +1,20 @@
 import "./App.css";
-import Filter from "./Filter";
 import Header from "./Header";
-import CocktailList from "./CocktailList";
 import OrderProgress from "./OrderProgress";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "./model/User";
 import CupChangeEvent from "./model/CupChangeEvent";
 import OrderState from "./model/OrderState";
 import { Cocktail } from "./model/Cocktail";
 import { getCocktails } from "./api/cocktail";
-import { useEvents as useMachineEvent } from "./api/events";
+import { useMachineEvent } from "./api/events";
 import OrderChangeEvent from "./model/OrderChangeEvent";
-import { order } from "./api/order";
+import { abort, order } from "./api/order";
+import FilteredCocktailList from "./FilteredCocktailList";
+import ErrorView from "./ErrorView";
 
-const tagRelevance = (tag: string, cocktails: Cocktail[]) => {
-  const prevalence =
-    cocktails.filter((cocktail) => cocktail.tags.includes(tag)).length /
-    cocktails.length;
-  return 1 - Math.abs(prevalence - 0.5) * 2;
-};
+const wrapError = (message: string, error: any) =>
+  new Error(message, { cause: error });
 
 function App() {
   const isMachine = true;
@@ -26,39 +22,31 @@ function App() {
   const [cupId, setCupId] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [orderState, setOrderState] = useState<OrderState | null>(null);
-  const [cocktails, setCocktails] = useState<Record<string, Cocktail>>({});
-  const [tags, setTags] = useState<string[]>([]);
-  const [cocktailFilter, setCocktailFilter] = useState<
-    (cocktail: Cocktail) => boolean
-  >(() => (cocktail: Cocktail) => true);
+  const [cocktails, setCocktails] = useState<Record<string, Cocktail> | null>(
+    null
+  );
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     async function loadCocktails() {
-      const cocktails: Cocktail[] = await getCocktails();
-      const map: Record<string, Cocktail> = cocktails.reduce(
-        (acc, cocktail) => ({ ...acc, [cocktail.id]: cocktail }),
-        {}
-      );
-      setCocktails(map);
+      try {
+        const cocktails: Cocktail[] = await getCocktails();
+        if (cocktails.length === 0) {
+          throw new Error("Liste der geladenen Cocktails ist leer");
+        }
+        const map: Record<string, Cocktail> = cocktails.reduce(
+          (acc, cocktail) => ({ ...acc, [cocktail.id]: cocktail }),
+          {}
+        );
+        setCocktails(map);
+      } catch (error) {
+        setError(wrapError("Cocktails konnten nicht geladen werden", error));
+      }
     }
     loadCocktails();
   }, []);
 
-  useEffect(() => {
-    const allCocktails = Object.values(cocktails);
-    const allTags = allCocktails
-      .map((cocktail) => cocktail.tags)
-      .flat()
-      .filter((value, index, array) => index === array.indexOf(value));
-    const sortedTags = allTags.sort(
-      (a, b) =>
-        tagRelevance(b, allCocktails) - tagRelevance(a, allCocktails) ||
-        a.localeCompare(b)
-    );
-    setTags(sortedTags);
-  }, [cocktails]);
-
-  const machineEvent = useMachineEvent();
+  const machineEvent = useMachineEvent(setError);
 
   useEffect(() => {
     if (machineEvent === null) {
@@ -74,18 +62,32 @@ function App() {
         orderChange.order === null
           ? null
           : {
-              order: orderChange.order,
+              cocktailId: orderChange.order.cocktailId,
               progress: orderChange.progress || 0,
             }
       );
     }
   }, [machineEvent]);
 
-  const filterCallback = useCallback(
-    (filter: (cocktail: Cocktail) => boolean) =>
-      setCocktailFilter(() => filter),
-    []
-  );
+  const orderCocktail = async (cocktailId: string) => {
+    try {
+      setOrderState({
+        cocktailId,
+        progress: 0,
+      });
+      await order(cocktailId);
+    } catch (error) {
+      setError(wrapError("Cocktail konnte nicht bestellt werden", error));
+    }
+  };
+
+  const abortOrder = async () => {
+    try {
+      await abort();
+    } catch (error) {
+      setError(wrapError("Bestellung konnte nicht abgebrochen werden", error));
+    }
+  };
 
   return (
     <>
@@ -93,20 +95,27 @@ function App() {
         cupId={cupId}
         user={user}
         isMachine={isMachine}
-        minimal={orderState !== null}
+        style={
+          error !== null
+            ? "colors-error"
+            : orderState !== null
+            ? "colors-minimal"
+            : ""
+        }
       />
-      {orderState ? (
+      {error !== null ? (
+        <ErrorView error={error} />
+      ) : orderState && cocktails ? (
         <OrderProgress
-          cocktail={cocktails[orderState.order.cocktailId]}
-          order={orderState.order}
+          cocktail={cocktails[orderState.cocktailId]}
           progress={orderState.progress}
+					abortOrder={abortOrder}
         />
       ) : (
         <main>
-          <Filter tags={tags} setFilter={filterCallback} />
-          <CocktailList
-            cocktails={Object.values(cocktails).filter(cocktailFilter).sort((a, b) => a.name.localeCompare(b.name))}
-            orderCocktail={order}
+          <FilteredCocktailList
+            cocktails={cocktails}
+            orderCocktail={orderCocktail}
           />
         </main>
       )}

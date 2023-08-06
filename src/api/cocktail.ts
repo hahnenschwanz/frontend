@@ -20,7 +20,7 @@ const mockCocktails = [
   {
     id: "3",
     name: "Screwdriver",
-    imageUrl: "",
+    imageUrl: null,
     alcoholic: false,
     tags: ["Fruchtig", "Süß"],
     ingredients: [],
@@ -36,10 +36,9 @@ const mockCocktails = [
 ];
 
 const getCocktails: () => Promise<Cocktail[]> = async () => {
-  // await new Promise((resolve) => setTimeout(() => resolve(null), 7000));
+  await new Promise((resolve) => setTimeout(() => resolve(null), 1000));
   // const response = await fetch('/cocktail');
-  // const data = await response.json();
-  // return data;
+  // return await response.json();
   return mockCocktails;
 };
 

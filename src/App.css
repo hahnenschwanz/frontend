@@ -1,4 +1,5 @@
 main {
   padding: var(--s2) var(--s3);
+	color: var(--fg);
+	background-color: var(--bg);
 }
-

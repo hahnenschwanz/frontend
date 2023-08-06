@@ -1,0 +1,13 @@
+.fullscreen-error {
+  padding: var(--s3);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  font-size: 1.5rem;
+}
+
+.stack {
+  font-size: 1rem;
+}

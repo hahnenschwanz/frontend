@@ -1,7 +1,7 @@
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './CocktailCard.css';
-import { Cocktail } from './model/Cocktail';
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./CocktailCard.css";
+import { Cocktail } from "./model/Cocktail";
 
 interface CocktailCardProps {
   cocktail: Cocktail;
@@ -11,10 +11,10 @@ interface CocktailCardProps {
 function CocktailCard({ cocktail, orderCocktail }: CocktailCardProps) {
   return (
     <div className="card" onClick={() => orderCocktail(cocktail.id)}>
-      <img src={cocktail.imageUrl} alt="" />
+      {cocktail.imageUrl && <img src={cocktail.imageUrl} alt="" />}
       <div>
         <h2>{cocktail.name}</h2>
-        <div>{cocktail.tags.join(', ')}</div>
+        <div>{cocktail.tags.join(", ")}</div>
       </div>
       <div className="go">
         <FontAwesomeIcon size="2x" icon={faPlay} />

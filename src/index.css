@@ -1,8 +1,13 @@
 :root {
-  --bg: #06090a;
-  --fg: #fffffb;
+  --dark: #06090a;
+  --light: #fffffb;
+
+  --bg: var(--dark);
+  --fg: var(--light);
   --accent1: #daf05c;
   --accent2: #a0c7dd;
+
+  --error: #e04231;
 
   --s0: 4px;
   --s1: 12px;
@@ -33,7 +38,7 @@ body {
 }
 
 #root {
-  min-height: 100vh;
+  min-block-size: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -44,7 +49,7 @@ main {
 
 img {
   object-fit: contain;
-  max-width: 100%;
+  max-inline-size: 100%;
 }
 
 code {
@@ -52,8 +57,23 @@ code {
     monospace;
 }
 
+.colors-minimal {
+  --fg: var(--dark);
+  --bg: var(--accent);
+}
+
+.colors-error {
+  --fg: var(--dark);
+  --bg: var(--error);
+  --accent: var(--error);
+}
+
 .no-accent {
   --accent: var(--fg);
+}
+
+.accent-error {
+	--accent: var(--error);
 }
 
 .accent1 {
@@ -62,10 +82,6 @@ code {
 
 .accent2 {
   --accent: var(--accent2);
-}
-
-.accent3 {
-  --accent: var(--accent3);
 }
 
 h1,
@@ -133,4 +149,14 @@ input[type="checkbox"] {
 .toggle-button > input:checked + label {
   background-color: var(--accent);
   color: var(--bg);
+}
+
+button {
+  border: var(--s1) solid var(--dark);
+  border-radius: var(--radius);
+  padding: var(--s2);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--dark);
+  background-color: var(--accent);
 }

@@ -12,16 +12,16 @@
 .cocktail {
   display: flex;
   flex-direction: row;
-	align-items: flex-start;
+  align-items: flex-start;
 
   color: var(--bg);
 }
 
 .cocktail > img {
   display: block;
-  width: 20%;
-	margin-top: var(--s2);
-	flex: 0 0 auto;
+  inline-size: 20%;
+  margin-top: var(--s2);
+  flex: 0 0 auto;
   filter: drop-shadow(2px 2px) drop-shadow(-2px 2px) drop-shadow(2px -2px)
     drop-shadow(-2px -2px);
 }
@@ -46,17 +46,24 @@
 }
 
 .progress-container {
-  block-size: 80px;
   inline-size: 100%;
+	display: flex;
+	flex-direction: row;
+	gap: var(--s2);
+}
+
+.progress-bar {
+	flex-grow: 1;
   background-color: var(--bg);
   border-radius: var(--radius);
   padding: var(--s1);
 }
 
-.progress-bar {
+.progress-meter {
   min-inline-size: calc(2 * var(--radius));
   block-size: 100%;
+  min-block-size: 60px;
   background-color: var(--accent1);
-  transition: width 2s ease;
+  transition: inline-size 2s ease;
   border-radius: var(--radius);
 }

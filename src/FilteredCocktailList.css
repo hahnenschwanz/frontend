@@ -1,0 +1,8 @@
+.filtered-cocktails-info {
+  margin-block-start: 96px;
+  display: flex;
+	flex-direction: column;
+  align-items: center;
+	gap: var(--s2);
+  font-size: 1.5rem;
+}

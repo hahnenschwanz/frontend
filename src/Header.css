@@ -9,6 +9,7 @@ header {
   gap: var(--s1);
 
   white-space: nowrap;
+	color: var(--fg);
   background-color: var(--bg);
 }
 
@@ -24,11 +25,6 @@ header > * {
   .title {
     display: none;
   }
-}
-
-header.minimal {
-  color: black;
-  background-color: var(--accent);
 }
 
 .userinfo {
@@ -71,7 +67,7 @@ header.minimal {
   flex-wrap: wrap;
   gap: var(--s1);
 
-  width: 100%;
+  inline-size: 100%;
 
   --accent: var(--accent1);
 }
@@ -95,7 +91,7 @@ header.minimal {
   padding: var(--s2);
   border-radius: var(--radius);
 
-  width: fit-content;
+  inline-size: fit-content;
 
   background-color: var(--accent);
 }

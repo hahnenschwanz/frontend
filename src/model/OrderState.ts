@@ -1,6 +1,4 @@
-import { Order } from "./Order";
-
 export default interface OrderState {
-  order: Order;
+	cocktailId: string;
   progress: number;
 }

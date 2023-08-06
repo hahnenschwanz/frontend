@@ -1,39 +1,52 @@
 // import useWebSocket from 'react-use-websocket';
-import MachineEvent from '../model/MachineEvent';
-import { useEffect, useState } from 'react';
-import { mockFinishOrder, mockOrder } from './order';
+import MachineEvent from "../model/MachineEvent";
+import { useEffect, useState } from "react";
+import { mockFinishOrder, mockOrder } from "./order";
 
 let mockInterval: NodeJS.Timer | null = null;
 let mockProgress = 0;
 
-const useEvents: () => MachineEvent | null = () => {
+const useMachineEvent = (setError: (error: Error) => void) => {
   // const { lastJsonMessage } = useWebSocket(
-  //   `wss://${window.location.host}/events`
+  //   `wss://${window.location.host}/events`,
+  //   {
+  //     onClose: (event: CloseEvent) => {
+  //       const message = event.wasClean
+  //         ? "Websocket-Verbindung wurde geschlossen"
+  //         : "Websocket-Verbindung wurde unterbrochen";
+  //       const closeError = new Error(
+  //         `Fehlercode: ${event.code}, Grund: "${event.reason}"`
+  //       );
+  //       setError(new Error(message, { cause: closeError }));
+  //     },
+  //     onError: () => {
+  //       setError(new Error("Problem mit der Websocket-Verbindung"));
+  //     },
+  //   }
   // );
-  // return lastJsonMessage as any as MachineEvent;
+  // return lastJsonMessage as any as MachineEvent | null;
 
   const [mockMessage, setMockMessage] = useState<MachineEvent | null>(null);
 
   useEffect(() => {
     setTimeout(() => {
       setMockMessage({
-        type: 'CupChange',
+        type: "CupChange",
         body: {
-          cup: '4321',
+          cup: "4321",
           user: null,
         },
       });
-    }, 1000);
+    }, 2000);
 
     setTimeout(() => {
       setMockMessage({
-        type: 'CupChange',
+        type: "CupChange",
         body: {
-          cup: '4321',
+          cup: "4321",
           user: {
-            id: '1111',
-            name: 'neri',
-            cups: ['4321'],
+            id: "1111",
+            cups: ["4321"],
           },
         },
       });
@@ -45,7 +58,7 @@ const useEvents: () => MachineEvent | null = () => {
         mockInterval = null;
 
         setMockMessage({
-          type: 'OrderChange',
+          type: "OrderChange",
           body: {
             order: mockOrder,
             progress: mockProgress,
@@ -62,7 +75,7 @@ const useEvents: () => MachineEvent | null = () => {
           }
 
           setMockMessage({
-            type: 'OrderChange',
+            type: "OrderChange",
             body: {
               order: mockOrder,
               progress: mockProgress,
@@ -71,7 +84,7 @@ const useEvents: () => MachineEvent | null = () => {
         }, 2000);
 
         setMockMessage({
-          type: 'OrderChange',
+          type: "OrderChange",
           body: {
             order: mockOrder,
             progress: mockProgress,
@@ -84,4 +97,4 @@ const useEvents: () => MachineEvent | null = () => {
   return mockMessage;
 };
 
-export { useEvents };
+export { useMachineEvent };

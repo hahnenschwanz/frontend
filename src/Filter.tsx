@@ -13,22 +13,36 @@ import TagFilterState from "./model/TagFilterState";
 interface FilterProps {
   tags: string[];
   setFilter: (filter: (cocktail: Cocktail) => boolean) => void;
+  setResetFilter: (resetFilters: () => void) => void;
 }
 
-function Filter({ tags, setFilter }: FilterProps) {
+function toRecord<K extends string | number | symbol, V>(
+  array: K[],
+  valueMapper: (key: K) => V
+) {
+  return array.reduce((record, key) => {
+    return Object.assign(record, { [key]: valueMapper(key) });
+  }, {});
+}
+
+function Filter({ tags, setFilter, setResetFilter }: FilterProps) {
   const [alcoholic, setAlcoholic] = useState<boolean>(true);
   const [tagStates, setTagStates] = useState<Record<string, TagFilterState>>(
     {}
   );
 
   useEffect(() => {
+    setResetFilter(() => {
+      return () => {
+				console.log('reset filter called');
+        setTagStates(toRecord(tags, () => TagFilterState.UNSPECIFIED));
+      };
+    });
+  }, [tags, setResetFilter]);
+
+  useEffect(() => {
     setTagStates((states) => {
-      return tags.reduce((acc, cur) => {
-        return {
-          ...acc,
-          [cur]: states[cur] || TagFilterState.UNSPECIFIED,
-        };
-      }, {});
+      return toRecord(tags, (tag) => states[tag] || TagFilterState.UNSPECIFIED);
     });
   }, [tags]);
 
@@ -56,7 +70,8 @@ function Filter({ tags, setFilter }: FilterProps) {
           id="alcohol-yes"
           name="alcohol"
           checked={alcoholic}
-          onChange={() => setAlcoholic(true)}
+					onChange={() => {}}
+          onClick={() => setAlcoholic((alcoholic) => !alcoholic)}
         />
         <label htmlFor="alcohol-yes">
           <FontAwesomeIcon icon={faMartiniGlass} /> Mit
@@ -66,7 +81,8 @@ function Filter({ tags, setFilter }: FilterProps) {
           type="radio"
           name="alcohol"
           checked={!alcoholic}
-          onChange={() => setAlcoholic(false)}
+					onChange={() => {}}
+          onClick={() => setAlcoholic((alcoholic) => !alcoholic)}
         />
         <label htmlFor="alcohol-no">
           <FontAwesomeIcon icon={faGlassWater} /> Ohne

@@ -11,7 +11,8 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  height: 48px;
+	flex-grow: 1;
+  block-size: 48px;
   overflow: hidden;
 }
 
@@ -21,12 +22,12 @@
   }
 
   .more-filters {
-    margin-left: auto;
+    margin-inline-start: auto;
   }
 }
 
 .alcohol {
-  margin-right: var(--s3);
+  margin-inline-end: var(--s3);
 }
 
 .more-filters {
