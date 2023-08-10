@@ -24,6 +24,7 @@ function Dialog({ open, title, children, onDismiss }: DialogProps) {
     if (!dialog) {
       return;
     }
+    console.log({ open, cur: dialog.open });
     if (open && !dialog.open) {
       dialog.showModal();
       dialog.classList.add("animate");

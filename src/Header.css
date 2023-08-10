@@ -99,6 +99,7 @@ header > * {
 .connect-manual {
   display: flex;
   flex-direction: column;
+	align-items: center;
   gap: var(--s1);
 }
 

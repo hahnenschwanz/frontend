@@ -1,10 +1,10 @@
-import { faLink, faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useState } from 'react';
-import QRCode from 'react-qr-code';
-import Dialog from './Dialog';
-import './Header.css';
-import { User } from './model/User';
+import { faLink, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
+import QRCode from "react-qr-code";
+import Dialog from "./Dialog";
+import "./Header.css";
+import { User } from "./model/User";
 
 interface HeaderProps {
   cupId: string | null;
@@ -35,7 +35,7 @@ function UserInfo({ cupId, user, isMachine, openRegisterDialog }: UserProps) {
 
     return (
       <div className="nickname">
-        {user.name || 'Anon'} <FontAwesomeIcon icon={faUser} />
+        {user.name || "Anon"} <FontAwesomeIcon icon={faUser} />
       </div>
     );
   } else {
@@ -112,9 +112,8 @@ function Header({ cupId, user, isMachine, style }: HeaderProps) {
               <span className="connect-link">https://hahnenschwanz.com/</span>
               <span>
                 klick dort auf <em>Becher registrieren</em> (oder auf deinen
-                Namen um
-                <br />
-                einen weiteren Becher hinzuzufügen), und gib diesen Code ein
+                Namen um einen weiteren Becher hinzuzufügen), und gib diesen
+                Code ein
               </span>
               <span className="connect-code">{cupId}</span>
             </div>

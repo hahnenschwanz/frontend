@@ -1,3 +1,4 @@
+import { ConstKeyword } from "typescript";
 import { Cocktail } from "../model/Cocktail";
 
 const mockCocktails = [
@@ -11,11 +12,11 @@ const mockCocktails = [
   },
   {
     id: "2",
-    name: "Long Island Iced Tea",
+    name: "Long Beach Ice Tea",
     imageUrl: "Long-Island-Iced-Tea-icon.png",
     alcoholic: true,
-    tags: ["Sauer"],
-    ingredients: [],
+    tags: ["Sauer", "Jung"],
+    ingredients: ["Orangensaft", "Kirschsaft", "Tequila", "Wodka", "Gin", "Barcadi", "Zitronensaft"],
   },
   {
     id: "3",
@@ -32,6 +33,23 @@ const mockCocktails = [
     alcoholic: true,
     tags: ["Knallig", "Fruchtig", "Jung"],
     ingredients: [],
+    hidden: true,
+  },
+  {
+    id: "5",
+    name: "Desire",
+    imageUrl: "",
+    alcoholic: true,
+    tags: ["Bitter", "Fruchtig", "Sauer"],
+    ingredients: [],
+  },
+  {
+    id: "6",
+    name: "Swimming Pool",
+    imageUrl: "",
+    alcoholic: true,
+    tags: ["Bitter", "Fruchtig", "Sauer", "Sahne"],
+    ingredients: ["Ananassaft", "Sahne", "Batida de Coco", "Wodka", "Blue Cuaracao", "Barcadi"],
   },
 ];
 
@@ -44,4 +62,17 @@ const getCocktails: () => Promise<Cocktail[]> = async () => {
   return await response.json();
 };
 
-export { getCocktails };
+const updateCocktail: (cocktail: Cocktail) => Promise<Cocktail> = async (
+  cocktail
+) => {
+  const response = await fetch("/cocktail", {
+    method: "POST",
+    headers: {
+      "Content-Type": "appliation/json",
+    },
+    body: JSON.stringify(cocktail),
+  });
+  return await response.json();
+};
+
+export { getCocktails, updateCocktail };

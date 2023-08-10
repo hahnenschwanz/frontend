@@ -14,14 +14,51 @@
   cursor: pointer;
 }
 
-.card > img {
+.card > img,
+.popup-cocktail > img {
   filter: drop-shadow(2px 2px) drop-shadow(-2px 2px) drop-shadow(2px -2px)
     drop-shadow(-2px -2px);
-	margin-inline: -8%;
+  margin-inline: -8%;
 }
 
 .go {
   position: absolute;
   inset-inline-end: var(--s2);
   inset-block-end: var(--s1);
+}
+
+.popup-cocktail {
+  display: flex;
+  flex-direction: row;
+}
+
+.popup-cocktail-detail {
+  margin-block-end: var(--s3);
+}
+
+.popup-cocktail-detail > label {
+  display: inline-block;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-block-end: var(--s0);
+}
+
+.popup-cocktail-detail > label + * {
+  margin-block-end: var(--s1);
+}
+
+.popup-cocktail-detail > .ingredients {
+  columns: 2;
+  padding-inline-start: 0;
+  list-style-position: inside;
+  margin-block: 0;
+}
+
+.popup-cocktail-actions {
+  inline-size: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  margin-inline-end: calc(-1 * var(--s2));
+  margin-block-end: calc(-1 * var(--s1));
 }

@@ -35,6 +35,7 @@ function FilteredCocktailList({
 
   useEffect(() => {
     const allTags = cocktailList
+      .filter((cocktail) => !cocktail.hidden)
       .map((cocktail) => cocktail.tags)
       .flat()
       .filter((value, index, array) => index === array.indexOf(value));
@@ -53,7 +54,10 @@ function FilteredCocktailList({
 
   const visibleCocktails = useMemo(
     () =>
-      cocktailList.filter(filter).sort((a, b) => a.name.localeCompare(b.name)),
+      cocktailList
+        .filter((cocktail) => !cocktail.hidden)
+        .filter(filter)
+        .sort((a, b) => a.name.localeCompare(b.name)),
     [cocktailList, filter]
   );
 
@@ -64,7 +68,7 @@ function FilteredCocktailList({
   }
 
   const orderCocktailResetFilters = (cocktailId: string) => {
-    resetFilter('all');
+    resetFilter("all");
     orderCocktail(cocktailId);
   };
 
@@ -78,7 +82,7 @@ function FilteredCocktailList({
       {visibleCocktails.length === 0 ? (
         <div className="filtered-cocktails-info">
           <div>Verrückter Mix, aber so einen Cocktail gibt es leider nicht</div>
-          <button className="accent1" onClick={() => resetFilter('tags')}>
+          <button className="accent1" onClick={() => resetFilter("tags")}>
             Filter zurücksetzen
           </button>
         </div>

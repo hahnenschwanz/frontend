@@ -7,4 +7,5 @@ export interface Cocktail {
   alcoholic: boolean;
   tags: string[];
   ingredients: string[];
+	hidden: boolean;
 }

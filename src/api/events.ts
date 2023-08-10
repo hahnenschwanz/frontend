@@ -22,18 +22,18 @@ const useMockMachineEvent: (
       });
     }, 2000);
 
-    setTimeout(() => {
-      setMockMessage({
-        type: "CupChange",
-        body: {
-          cup: "4321",
-          user: {
-            id: "1111",
-            cups: ["4321"],
-          },
-        },
-      });
-    }, 5000);
+    // setTimeout(() => {
+    //   setMockMessage({
+    //     type: "CupChange",
+    //     body: {
+    //       cup: "4321",
+    //       user: {
+    //         id: "1111",
+    //         cups: ["4321"],
+    //       },
+    //     },
+    //   });
+    // }, 5000);
 
     setInterval(() => {
       if (mockOrder === null && mockInterval !== null) {

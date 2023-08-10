@@ -8,12 +8,12 @@ dialog {
   transition-timing-function: ease-in;
   transform: scale(0.1);
 
-  border-color: var(--accent2);
-  border-width: var(--border);
+  /* border-color: var(--accent1); */
+  border-width: 0;
   border-radius: var(--radius);
 
-  color: var(--fg);
-  background-color: var(--bg);
+  color: var(--bg);
+  background-color: var(--accent1);
 }
 
 dialog.animate {
@@ -30,7 +30,9 @@ dialog > div {
   block-size: 100%;
   padding: var(--s3);
 
-  text-align: center;
+	max-inline-size: 50vw;
+
+  /* text-align: center; */
 
   display: flex;
   flex-direction: column;
@@ -47,6 +49,7 @@ dialog .close {
 
 dialog h1 {
   margin-bottom: var(--s2);
+	margin-inline: var(--s3);
 }
 
 dialog * {
