@@ -20,7 +20,7 @@ const order: (cocktailId: CocktailId) => Promise<Order | null> = async (
   }
 
   await new Promise((resolve) => setTimeout(() => resolve(null), 400));
-  const response = await fetch("/order", {
+  const response = await fetch("/api/order", {
     method: "POST",
     headers: {
       "Content-Type": "appliation/json",
@@ -41,7 +41,7 @@ const order: (cocktailId: CocktailId) => Promise<Order | null> = async (
 };
 
 const abort: () => Promise<void> = async () => {
-  const response = await fetch("/abort", { method: "POST" });
+  const response = await fetch("/api/abort", { method: "POST" });
   if (response.status === 409) {
     // no order is in progress
     return;

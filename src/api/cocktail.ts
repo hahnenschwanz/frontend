@@ -58,14 +58,14 @@ const getCocktails: () => Promise<Cocktail[]> = async () => {
     await new Promise((resolve) => setTimeout(() => resolve(null), 1000));
     return mockCocktails;
   }
-  const response = await fetch("/cocktail");
+  const response = await fetch("/api/cocktail");
   return await response.json();
 };
 
 const updateCocktail: (cocktail: Cocktail) => Promise<Cocktail> = async (
   cocktail
 ) => {
-  const response = await fetch("/cocktail", {
+  const response = await fetch("/api/cocktail", {
     method: "POST",
     headers: {
       "Content-Type": "appliation/json",
