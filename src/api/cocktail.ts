@@ -1,6 +1,6 @@
 import { Cocktail } from "../model/Cocktail";
 
-const mockCocktails = [
+const mockCocktails: Cocktail[] = [
   {
     id: "1",
     name: "Bloody Mary",
@@ -8,6 +8,7 @@ const mockCocktails = [
     alcoholic: true,
     tags: ["Süß", "Sauer", "Blutig", "Vegan"],
     ingredients: [],
+    hidden: false,
   },
   {
     id: "2",
@@ -15,7 +16,16 @@ const mockCocktails = [
     imageUrl: "Long-Island-Iced-Tea-icon.png",
     alcoholic: true,
     tags: ["Sauer", "Jung"],
-    ingredients: ["Orangensaft", "Kirschsaft", "Tequila", "Wodka", "Gin", "Barcadi", "Zitronensaft"],
+    ingredients: [
+      { name: "Orangensaft" },
+      { name: "Kirschsaft" },
+      { name: "Tequila" },
+      { name: "Wodka" },
+      { name: "Gin" },
+      { name: "Barcadi" },
+      { name: "Zitronensaft" },
+    ],
+    hidden: true,
   },
   {
     id: "3",
@@ -24,6 +34,7 @@ const mockCocktails = [
     alcoholic: false,
     tags: ["Fruchtig", "Süß"],
     ingredients: [],
+    hidden: false,
   },
   {
     id: "4",
@@ -41,6 +52,7 @@ const mockCocktails = [
     alcoholic: true,
     tags: ["Bitter", "Fruchtig", "Sauer"],
     ingredients: [],
+    hidden: false,
   },
   {
     id: "6",
@@ -48,13 +60,21 @@ const mockCocktails = [
     imageUrl: "",
     alcoholic: true,
     tags: ["Bitter", "Fruchtig", "Sauer", "Sahne"],
-    ingredients: ["Ananassaft", "Sahne", "Batida de Coco", "Wodka", "Blue Cuaracao", "Barcadi"],
+    ingredients: [
+      { name: "Ananassaft" },
+      { name: "Sahne" },
+      { name: "Batida de Coco" },
+      { name: "Wodka" },
+      { name: "Blue Cuaracao" },
+      { name: "Barcadi" },
+    ],
+    hidden: false,
   },
 ];
 
 const getCocktails: () => Promise<Cocktail[]> = async () => {
   if (process.env.REACT_APP_MOCK) {
-    await new Promise((resolve) => setTimeout(() => resolve(null), 1000));
+    await new Promise((resolve) => setTimeout(() => resolve(null), 500));
     return mockCocktails;
   }
   const response = await fetch("/api/cocktail");
@@ -64,6 +84,11 @@ const getCocktails: () => Promise<Cocktail[]> = async () => {
 const updateCocktail: (cocktail: Cocktail) => Promise<Cocktail> = async (
   cocktail
 ) => {
+  if (process.env.REACT_APP_MOCK) {
+    const index = mockCocktails.findIndex((c) => c.id === cocktail.id);
+    mockCocktails[index] = cocktail;
+    return cocktail;
+  }
   const response = await fetch("/api/cocktail", {
     method: "POST",
     headers: {

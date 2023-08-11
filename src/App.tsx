@@ -1,26 +1,32 @@
-import "./App.css";
-import Header from "./Header";
-import OrderProgress from "./OrderProgress";
-import { useEffect, useState } from "react";
-import { User } from "./model/User";
-import CupChangeEvent from "./model/CupChangeEvent";
-import OrderState from "./model/OrderState";
-import { Cocktail } from "./model/Cocktail";
-import { getCocktails } from "./api/cocktail";
-import OrderChangeEvent from "./model/OrderChangeEvent";
-import { abort, order } from "./api/order";
-import FilteredCocktailList from "./FilteredCocktailList";
-import ErrorView from "./ErrorView";
+import './App.css';
+import Header from './Header';
+import OrderProgress from './OrderProgress';
+import { useEffect, useState } from 'react';
+import { User } from './model/User';
+import CupChangeEvent from './model/CupChangeEvent';
+import OrderState from './model/OrderState';
+import { Cocktail } from './model/Cocktail';
+import { getCocktails } from './api/cocktail';
+import OrderChangeEvent from './model/OrderChangeEvent';
+import { abort, order } from './api/order';
+import FilteredCocktailList from './FilteredCocktailList';
+import ErrorView from './ErrorView';
 import {
   useMachineEvent as machineEvent,
   useMockMachineEvent as mockMachineEvent,
-} from "./api/events";
+} from './api/events';
+import Dialog from './Dialog';
+import Admin from './Admin';
 
 const wrapError = (message: string, error: any) =>
   new Error(message, { cause: error });
 
+const VERY_SECRET_PIN = '432357';
+
 function App() {
-  const isMachine = true;
+  const [isMachine, setIsMachine] = useState(
+    window.location.pathname === '/' + VERY_SECRET_PIN
+  );
 
   const [cupId, setCupId] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
@@ -29,24 +35,28 @@ function App() {
     null
   );
   const [error, setError] = useState<Error | null>(null);
+  const [admin, setAdmin] = useState(false);
+
+  const loadCocktails = async () => {
+    try {
+      const cocktails: Cocktail[] = await getCocktails();
+      if (cocktails.length === 0) {
+        throw new Error('Liste der geladenen Cocktails ist leer');
+      }
+      const map: Record<string, Cocktail> = cocktails.reduce(
+        (acc, cocktail) => ({ ...acc, [cocktail.id]: cocktail }),
+        {}
+      );
+      setCocktails(map);
+    } catch (error) {
+      setError(wrapError('Cocktails konnten nicht geladen werden', error));
+    }
+  };
 
   useEffect(() => {
-    async function loadCocktails() {
-      try {
-        const cocktails: Cocktail[] = await getCocktails();
-        if (cocktails.length === 0) {
-          throw new Error("Liste der geladenen Cocktails ist leer");
-        }
-        const map: Record<string, Cocktail> = cocktails.reduce(
-          (acc, cocktail) => ({ ...acc, [cocktail.id]: cocktail }),
-          {}
-        );
-        setCocktails(map);
-      } catch (error) {
-        setError(wrapError("Cocktails konnten nicht geladen werden", error));
-      }
-    }
     loadCocktails();
+    const interval = setInterval(() => loadCocktails(), 10000);
+    return () => clearInterval(interval);
   }, []);
 
   const event = process.env.REACT_APP_MOCK
@@ -57,11 +67,11 @@ function App() {
     if (event === null) {
       return;
     }
-    if (event.type === "CupChange") {
+    if (event.type === 'CupChange') {
       const cupChange = event.body as CupChangeEvent;
       setUser(cupChange.user);
       setCupId(cupChange.cup);
-    } else if (event.type === "OrderChange") {
+    } else if (event.type === 'OrderChange') {
       const orderChange = event.body as OrderChangeEvent;
       setOrderState(
         orderChange.order === null
@@ -82,7 +92,7 @@ function App() {
       });
       await order(cocktailId);
     } catch (error) {
-      setError(wrapError("Cocktail konnte nicht bestellt werden", error));
+      setError(wrapError('Cocktail konnte nicht bestellt werden', error));
     }
   };
 
@@ -90,7 +100,7 @@ function App() {
     try {
       await abort();
     } catch (error) {
-      setError(wrapError("Bestellung konnte nicht abgebrochen werden", error));
+      setError(wrapError('Bestellung konnte nicht abgebrochen werden', error));
     }
   };
 
@@ -102,12 +112,28 @@ function App() {
         isMachine={isMachine}
         style={
           error !== null
-            ? "colors-error"
+            ? 'colors-error'
             : orderState !== null
-            ? "colors-minimal"
-            : ""
+            ? 'colors-minimal'
+            : ''
         }
+        openAdminDialog={() => setAdmin(true)}
       />
+      <Dialog
+        open={admin}
+        title="Administration"
+        onDismiss={() => setAdmin(false)}
+      >
+        <Admin
+          pin={VERY_SECRET_PIN}
+          cocktails={Object.values(cocktails || {})}
+          reloadCocktails={() => {
+            loadCocktails();
+          }}
+          isMachine={isMachine}
+          setIsMachine={setIsMachine}
+        />
+      </Dialog>
       {error !== null ? (
         <ErrorView error={error} />
       ) : orderState && cocktails ? (
@@ -119,6 +145,7 @@ function App() {
       ) : (
         <main>
           <FilteredCocktailList
+            isMachine={isMachine}
             cocktails={cocktails}
             orderCocktail={orderCocktail}
           />

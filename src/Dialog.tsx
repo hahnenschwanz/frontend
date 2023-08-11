@@ -1,13 +1,13 @@
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   ReactNode,
   SyntheticEvent,
   useCallback,
   useEffect,
   useRef,
-} from "react";
-import "./Dialog.css";
+} from 'react';
+import './Dialog.css';
 
 interface DialogProps {
   open: boolean;
@@ -24,12 +24,11 @@ function Dialog({ open, title, children, onDismiss }: DialogProps) {
     if (!dialog) {
       return;
     }
-    console.log({ open, cur: dialog.open });
     if (open && !dialog.open) {
       dialog.showModal();
-      dialog.classList.add("animate");
+      dialog.classList.add('animate');
     } else if (!open && dialog.open) {
-      dialog.classList.remove("animate");
+      dialog.classList.remove('animate');
       setTimeout(() => dialog.close(), 100);
     }
   }, [open, dialogRef]);
@@ -55,16 +54,18 @@ function Dialog({ open, title, children, onDismiss }: DialogProps) {
 
   return (
     <dialog ref={dialogRef} onClick={onClick} onCancel={dismiss}>
-      <div>
-        <h1>{title}</h1>
-        <FontAwesomeIcon
-          className="close"
-          size="lg"
-          icon={faXmark}
-          onClick={onDismiss}
-        />
-        {children}
-      </div>
+      {open ? (
+        <div>
+          <h1>{title}</h1>
+          <FontAwesomeIcon
+            className="close"
+            size="lg"
+            icon={faXmark}
+            onClick={onDismiss}
+          />
+          {children}
+        </div>
+      ) : null}
     </dialog>
   );
 }

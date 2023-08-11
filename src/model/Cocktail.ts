@@ -1,3 +1,5 @@
+import { Ingredient } from './Ingredient';
+
 export type CocktailId = string;
 
 export interface Cocktail {
@@ -6,6 +8,6 @@ export interface Cocktail {
   imageUrl?: string | null;
   alcoholic: boolean;
   tags: string[];
-  ingredients: string[];
-	hidden: boolean;
+  ingredients: Ingredient[];
+  hidden: boolean;
 }

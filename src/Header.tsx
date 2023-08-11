@@ -1,16 +1,17 @@
-import { faLink, faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-import QRCode from "react-qr-code";
-import Dialog from "./Dialog";
-import "./Header.css";
-import { User } from "./model/User";
+import { faLink, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useRef, useState } from 'react';
+import Dialog from './Dialog';
+import './Header.css';
+import { User } from './model/User';
+import Register from './Register';
 
 interface HeaderProps {
   cupId: string | null;
   user: User | null;
   isMachine: boolean;
   style?: string;
+  openAdminDialog: () => void;
 }
 
 interface UserProps {
@@ -35,7 +36,7 @@ function UserInfo({ cupId, user, isMachine, openRegisterDialog }: UserProps) {
 
     return (
       <div className="nickname">
-        {user.name || "Anon"} <FontAwesomeIcon icon={faUser} />
+        {user.name || 'Anon'} <FontAwesomeIcon icon={faUser} />
       </div>
     );
   } else {
@@ -43,7 +44,14 @@ function UserInfo({ cupId, user, isMachine, openRegisterDialog }: UserProps) {
   }
 }
 
-function Header({ cupId, user, isMachine, style }: HeaderProps) {
+function Header({
+  cupId,
+  user,
+  isMachine,
+  style,
+  openAdminDialog,
+}: HeaderProps) {
+  const longclickTimerRef = useRef<NodeJS.Timer | null>();
   const [register, setRegister] = useState(false);
 
   useEffect(() => {
@@ -52,32 +60,33 @@ function Header({ cupId, user, isMachine, style }: HeaderProps) {
     }
   }, [cupId, user]);
 
+  const touchStart = () => {
+    longclickTimerRef.current = setTimeout(() => {
+			openAdminDialog();
+      longclickTimerRef.current = null;
+    }, 2000);
+  };
+
+  const touchEnd = () => {
+    if (longclickTimerRef.current) {
+      clearTimeout(longclickTimerRef.current);
+      longclickTimerRef.current = null;
+    }
+  };
+
   return (
     <>
       <header className={`accent1 ${style}`}>
         <div className="title">
-          <h1 className="title">Hahnenschwanz</h1>
-        </div>
-        <div>
-          {/*
-          <fieldset className="radio-group">
-            <input
-              id="cocktails-default"
-              type="radio"
-              name="cocktails"
-              value="default"
-              defaultChecked
-            />
-            <label htmlFor="cocktails-default">Standard-Cocktails</label>
-            <input
-              id="cocktails-user"
-              type="radio"
-              name="cocktails"
-              value="user"
-            />
-            <label htmlFor="cocktails-user">Eigene Cocktails</label>
-          </fieldset>
-          */}
+          <h1
+            className="title"
+            onTouchStart={touchStart}
+            onTouchEnd={touchEnd}
+            onMouseDown={touchStart}
+            onMouseUp={touchEnd}
+          >
+            Hahnenschwanz
+          </h1>
         </div>
         <div className="userinfo">
           <UserInfo
@@ -93,32 +102,7 @@ function Header({ cupId, user, isMachine, style }: HeaderProps) {
         title="Becher registrieren"
         onDismiss={() => setRegister(false)}
       >
-        <div className="split">
-          <div>
-            <div className="split-title">Scanne diesen QR-Code</div>
-            <div className="connect-qr">
-              <QRCode
-                size={200}
-                level="H"
-                value={`https://hahnenschwanz.com/${cupId}`}
-                bgColor="var(--accent)"
-                fgColor="var(--bg)"
-              />
-            </div>
-          </div>
-          <div>
-            <div className="split-title">…oder öffne</div>
-            <div className="connect-manual">
-              <span className="connect-link">https://hahnenschwanz.com/</span>
-              <span>
-                klick dort auf <em>Becher registrieren</em> (oder auf deinen
-                Namen um einen weiteren Becher hinzuzufügen), und gib diesen
-                Code ein
-              </span>
-              <span className="connect-code">{cupId}</span>
-            </div>
-          </div>
-        </div>
+        <Register cupId={cupId || ''} />
       </Dialog>
     </>
   );

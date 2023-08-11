@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import CocktailList from "./CocktailList";
-import Filter from "./Filter";
-import "./FilteredCocktailList.css";
-import { Cocktail } from "./model/Cocktail";
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import CocktailList from './CocktailList';
+import Filter from './Filter';
+import './FilteredCocktailList.css';
+import { Cocktail } from './model/Cocktail';
 
 interface FilteredCocktailListProps {
+  isMachine: boolean;
   cocktails: Record<string, Cocktail> | null;
   orderCocktail: (cocktailId: string) => void;
 }
@@ -17,6 +18,7 @@ const tagRelevance = (tag: string, cocktails: Cocktail[]) => {
 };
 
 function FilteredCocktailList({
+  isMachine,
   cocktails,
   orderCocktail,
 }: FilteredCocktailListProps) {
@@ -25,7 +27,7 @@ function FilteredCocktailList({
     () => () => false
   );
   const [resetFilter, setResetFilter] = useState<
-    (kind: "tags" | "all") => void
+    (kind: 'tags' | 'all') => void
   >(() => () => {});
 
   const cocktailList = useMemo(
@@ -68,7 +70,7 @@ function FilteredCocktailList({
   }
 
   const orderCocktailResetFilters = (cocktailId: string) => {
-    resetFilter("all");
+    resetFilter('all');
     orderCocktail(cocktailId);
   };
 
@@ -82,12 +84,13 @@ function FilteredCocktailList({
       {visibleCocktails.length === 0 ? (
         <div className="filtered-cocktails-info">
           <div>Verrückter Mix, aber so einen Cocktail gibt es leider nicht</div>
-          <button className="accent1" onClick={() => resetFilter("tags")}>
+          <button className="accent1" onClick={() => resetFilter('tags')}>
             Filter zurücksetzen
           </button>
         </div>
       ) : (
         <CocktailList
+          isMachine={isMachine}
           cocktails={visibleCocktails}
           orderCocktail={orderCocktailResetFilters}
         />

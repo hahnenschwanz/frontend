@@ -1,8 +1,8 @@
 export type IngredientId = string;
 
 export interface Ingredient {
-	id: IngredientId;
+	id?: IngredientId;
 	name: string;
-	amount: number;
-	manual: boolean;
+	amount?: number;
+	manual?: boolean;
 }

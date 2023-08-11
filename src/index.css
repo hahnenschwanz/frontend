@@ -166,3 +166,11 @@ button {
 button.bordered {
   border: var(--s1) solid var(--dark);
 }
+
+input {
+	outline: none;
+	padding: var(--s1);
+	border: none;
+	border-bottom: solid 2px var(--bg);
+	background-color: transparent;
+}
