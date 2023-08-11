@@ -84,7 +84,7 @@ const useMachineEvent: (
   setError: (error: Error) => void
 ) => MachineEvent | null = (setError: (error: Error) => void) => {
   const { lastJsonMessage } = useWebSocket(
-    `wss://${window.location.host}/events`,
+    `ws://${window.location.host}/events`,
     {
       onClose: (event: CloseEvent) => {
         const message = event.wasClean
