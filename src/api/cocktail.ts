@@ -72,31 +72,54 @@ const mockCocktails: Cocktail[] = [
   },
 ];
 
-const getCocktails: () => Promise<Cocktail[]> = async () => {
+const getCocktails: (
+  onError: (error: Error) => void
+) => Promise<Cocktail[]> = async (onError) => {
   if (process.env.REACT_APP_MOCK) {
     await new Promise((resolve) => setTimeout(() => resolve(null), 500));
     return mockCocktails;
   }
-  const response = await fetch("/api/cocktail");
-  return await response.json();
+  try {
+		const response = await fetch("/api/cocktail");
+    if (!response.ok) {
+      const body = await response.text();
+      throw new Error(
+        `Server antwortete mit Statuscode ${response.status} ${response.statusText}:\n${body}`
+      );
+    }
+    return await response.json();
+  } catch (error) {
+    onError(error as Error);
+  }
 };
 
-const updateCocktail: (cocktail: Cocktail) => Promise<Cocktail> = async (
-  cocktail
-) => {
+const updateCocktail: (
+  cocktail: Cocktail,
+  onError: (error: Error) => void
+) => Promise<Cocktail> = async (cocktail, onError) => {
   if (process.env.REACT_APP_MOCK) {
     const index = mockCocktails.findIndex((c) => c.id === cocktail.id);
     mockCocktails[index] = cocktail;
     return cocktail;
   }
-  const response = await fetch("/api/cocktail", {
-    method: "POST",
-    headers: {
-      "Content-Type": "appliation/json",
-    },
-    body: JSON.stringify(cocktail),
-  });
-  return await response.json();
+  try {
+		const response = await fetch("/api/cocktail", {
+			method: "POST",
+			headers: {
+				"Content-Type": "appliation/json",
+			},
+			body: JSON.stringify(cocktail),
+		});
+    if (!response.ok) {
+      const body = await response.text();
+      throw new Error(
+        `Server antwortete mit Statuscode ${response.status} ${response.statusText}:\n${body}`
+      );
+    }
+    return await response.json();
+  } catch (error) {
+    onError(error as Error);
+  }
 };
 
 export { getCocktails, updateCocktail };

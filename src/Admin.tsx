@@ -11,7 +11,11 @@ interface AdminProps {
   reloadCocktails: () => void;
   isMachine: boolean;
   setIsMachine: (isMachine: boolean) => void;
+  setError: (error: Error) => void;
 }
+
+const wrapError = (message: string, error: any) =>
+  new Error(message, { cause: error });
 
 function Admin({
   pin,
@@ -19,6 +23,7 @@ function Admin({
   reloadCocktails,
   isMachine,
   setIsMachine,
+  setError,
 }: AdminProps) {
   const [unlocked, setUnlocked] = useState(false);
 
@@ -52,7 +57,13 @@ function Admin({
       }));
   }, [cocktails]);
 
-  const toggleIngredient = ({
+  const tryUpdateCocktail = async (cocktail: Cocktail) => {
+    await updateCocktail(cocktail, (error) =>
+      setError(wrapError('Cocktails konnten nicht aktualisiert werden', error))
+    );
+  };
+
+  const toggleIngredient = async ({
     ingredient,
     disabled,
   }: {
@@ -68,7 +79,7 @@ function Admin({
           ...cocktail,
           hidden: false,
         }))
-        .forEach(updateCocktail);
+        .forEach(tryUpdateCocktail);
     } else {
       cocktails
         .filter((cocktail) =>
@@ -78,7 +89,7 @@ function Admin({
           ...cocktail,
           hidden: true,
         }))
-        .forEach(updateCocktail);
+        .forEach(tryUpdateCocktail);
     }
     reloadCocktails();
   };
@@ -94,7 +105,14 @@ function Admin({
         </button>
       </span>
       <span>
-        <button className="accent2" onClick={() => tareScale()}>
+        <button
+          className="accent2"
+          onClick={() =>
+            tareScale((error) =>
+              setError(wrapError('Waage konnte nicht genullt werden', error))
+            )
+          }
+        >
           Tare
         </button>
       </span>
@@ -102,7 +120,11 @@ function Admin({
         <label>Scaling: </label>
         <input
           type="number"
-          onBlur={(event) => setScaleScaling(Number(event.target.value))}
+          onBlur={(event) =>
+            setScaleScaling(Number(event.target.value), (error) =>
+              setError(wrapError('Scaling konnte nicht gesetzt werden', error))
+            )
+          }
         ></input>
       </div>
       <span>
@@ -120,10 +142,29 @@ function Admin({
           ))}
         </ul>
       </span>
-      <button className="accent2" onClick={() => cleanStart()}>
+      <button
+        className="accent2"
+        onClick={() =>
+          cleanStart((error) =>
+            setError(
+              wrapError('Reinigung konnte nicht gestartet werden', error)
+            )
+          )
+        }
+      >
         Reinigung Start
       </button>
-      <button className="accent2" onClick={() => cleanStop()}>
+      <button
+        className="accent2"
+        onClick={() =>
+          cleanStop((error) => {
+            console.log({ error });
+            setError(
+              wrapError('Reinigung konnte nicht gestoppt werden', error)
+            );
+          })
+        }
+      >
         Reinigung Stop
       </button>
     </div>

@@ -38,19 +38,23 @@ function App() {
   const [admin, setAdmin] = useState(false);
 
   const loadCocktails = async () => {
-    try {
-      const cocktails: Cocktail[] = await getCocktails();
-      if (cocktails.length === 0) {
-        throw new Error('Liste der geladenen Cocktails ist leer');
-      }
-      const map: Record<string, Cocktail> = cocktails.reduce(
-        (acc, cocktail) => ({ ...acc, [cocktail.id]: cocktail }),
-        {}
+    const cocktails: Cocktail[] = await getCocktails((error) =>
+      setError(wrapError('Cocktails konnten nicht geladen werden', error))
+    );
+    if (cocktails.length === 0) {
+      setError(
+        wrapError(
+          'Cocktails konnten nicht geladen werden',
+          new Error('Liste der geladenen Cocktails ist leer')
+        )
       );
-      setCocktails(map);
-    } catch (error) {
-      setError(wrapError('Cocktails konnten nicht geladen werden', error));
+      return;
     }
+    const map: Record<string, Cocktail> = cocktails.reduce(
+      (acc, cocktail) => ({ ...acc, [cocktail.id]: cocktail }),
+      {}
+    );
+    setCocktails(map);
   };
 
   useEffect(() => {
@@ -85,23 +89,19 @@ function App() {
   }, [event]);
 
   const orderCocktail = async (cocktailId: string) => {
-    try {
-      setOrderState({
-        cocktailId,
-        progress: 0,
-      });
-      await order(cocktailId);
-    } catch (error) {
-      setError(wrapError('Cocktail konnte nicht bestellt werden', error));
-    }
+    setOrderState({
+      cocktailId,
+      progress: 0,
+    });
+    await order(cocktailId, (error) =>
+      setError(wrapError('Cocktail konnte nicht bestellt werden', error))
+    );
   };
 
   const abortOrder = async () => {
-    try {
-      await abort();
-    } catch (error) {
-      setError(wrapError('Bestellung konnte nicht abgebrochen werden', error));
-    }
+    await abort((error) =>
+      setError(wrapError('Bestellung konnte nicht abgebrochen werden', error))
+    );
   };
 
   return (
@@ -120,7 +120,7 @@ function App() {
         openAdminDialog={() => setAdmin(true)}
       />
       <Dialog
-        open={admin}
+        open={admin && !error}
         title="Administration"
         onDismiss={() => setAdmin(false)}
       >
@@ -132,6 +132,7 @@ function App() {
           }}
           isMachine={isMachine}
           setIsMachine={setIsMachine}
+          setError={setError}
         />
       </Dialog>
       {error !== null ? (

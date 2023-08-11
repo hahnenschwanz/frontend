@@ -8,7 +8,7 @@ let mockInterval: NodeJS.Timer | null = null;
 let mockProgress = 0;
 
 const useMockMachineEvent: (
-  setError: (error: Error) => void
+  onError: (error: Error) => void
 ) => MachineEvent | null = (setError: (error: Error) => void) => {
   const [mockMessage, setMockMessage] = useState<MachineEvent | null>(null);
 
@@ -82,7 +82,7 @@ const useMockMachineEvent: (
 };
 
 const useMachineEvent: (
-  setError: (error: Error) => void
+  onError: (error: Error) => void
 ) => MachineEvent | null = (setError: (error: Error) => void) => {
   if (window.location.protocol == "https:") {
     var ws_scheme = "wss://";
