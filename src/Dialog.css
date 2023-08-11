@@ -28,7 +28,7 @@ dialog::backdrop {
 dialog > div {
   inline-size: 100%;
   block-size: 100%;
-  padding: var(--s3);
+  padding: var(--s3) var(--s4);
 
 	max-inline-size: 50vw;
 

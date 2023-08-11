@@ -1,19 +1,18 @@
-import "./Filter.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import './Filter.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faFilter,
   faGlassWater,
   faMartiniGlass,
-} from "@fortawesome/free-solid-svg-icons";
-import FilterTag from "./FilterTag";
-import { Cocktail } from "./model/Cocktail";
-import { useEffect, useState } from "react";
-import TagFilterState from "./model/TagFilterState";
+} from '@fortawesome/free-solid-svg-icons';
+import FilterTag from './FilterTag';
+import { Cocktail } from './model/Cocktail';
+import { useEffect, useState } from 'react';
+import TagFilterState from './model/TagFilterState';
 
 interface FilterProps {
   tags: string[];
   setFilter: (filter: (cocktail: Cocktail) => boolean) => void;
-  setResetFilter: (resetFilters: (kind: "tags" | "all") => void) => void;
+  setResetFilter: (resetFilters: (kind: 'tags' | 'all') => void) => void;
 }
 
 function toRecord<K extends string | number | symbol, V>(
@@ -33,8 +32,8 @@ function Filter({ tags, setFilter, setResetFilter }: FilterProps) {
 
   useEffect(() => {
     setResetFilter(() => {
-      return (kind: "tags" | "all") => {
-        if (kind === "all") {
+      return (kind: 'tags' | 'all') => {
+        if (kind === 'all') {
           setAlcoholic(true);
         }
         setTagStates(toRecord(tags, () => TagFilterState.UNSPECIFIED));
@@ -105,9 +104,11 @@ function Filter({ tags, setFilter, setResetFilter }: FilterProps) {
           />
         ))}
       </div>
-      <span className="more-filters">
-        <FontAwesomeIcon icon={faFilter} size="2x" color="var(--accent2)" />
-      </span>
+      {/*
+				<span className="more-filters">
+					<FontAwesomeIcon icon={faFilter} size="2x" color="var(--accent2)" />
+				</span>
+			*/}
     </section>
   );
 }

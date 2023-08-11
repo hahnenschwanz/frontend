@@ -1,4 +1,3 @@
-import { ConstKeyword } from "typescript";
 import { Cocktail } from "../model/Cocktail";
 
 const mockCocktails = [
