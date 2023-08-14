@@ -2,7 +2,6 @@ import useWebSocket from "react-use-websocket";
 import MachineEvent from "../model/MachineEvent";
 import { useEffect, useState } from "react";
 import { mockFinishOrder, mockOrder } from "./order";
-import { Console } from "console";
 
 let mockInterval: NodeJS.Timer | null = null;
 let mockProgress = 0;
@@ -84,14 +83,9 @@ const useMockMachineEvent: (
 const useMachineEvent: (
   onError: (error: Error) => void
 ) => MachineEvent | null = (setError: (error: Error) => void) => {
-  if (window.location.protocol == "https:") {
-    var ws_scheme = "wss://";
-  }
-  else {
-    var ws_scheme = "ws://";
-  }
+  const wsScheme = window.location.protocol === "https:" ? "wss://" : "ws://";
   const { lastJsonMessage } = useWebSocket(
-    `${ws_scheme}${window.location.host}/api/events`,
+    `${wsScheme}${window.location.host}/api/events`,
     {
       onOpen: () => {
         console.info("Websocket-Verbindung wurde geöffnet");
