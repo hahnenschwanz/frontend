@@ -20,11 +20,12 @@
 .cocktail > img {
   display: block;
   inline-size: 20%;
-  margin-top: var(--s2);
+  margin-block-start: var(--s2);
+	margin-inline-end: var(--s3);
   flex: 0 0 auto;
   filter: drop-shadow(2px 2px) drop-shadow(-2px 2px) drop-shadow(2px -2px)
     drop-shadow(-2px -2px);
-	margin-inline: -2%;
+	border-radius: 50%;
 }
 
 .cocktail-info > h2 {

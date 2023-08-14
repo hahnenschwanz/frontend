@@ -64,7 +64,7 @@ const useMockMachineEvent: (
               progress: mockProgress,
             },
           });
-        }, 2000);
+        }, 20000);
 
         setMockMessage({
           type: "OrderChange",

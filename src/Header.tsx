@@ -1,10 +1,10 @@
-import { faLink, faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useRef, useState } from 'react';
-import Dialog from './Dialog';
-import './Header.css';
-import { User } from './model/User';
-import Register from './Register';
+import { faLink, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useRef, useState } from "react";
+import Dialog from "./Dialog";
+import "./Header.css";
+import { User } from "./model/User";
+import Register from "./Register";
 
 interface HeaderProps {
   cupId: string | null;
@@ -36,7 +36,7 @@ function UserInfo({ cupId, user, isMachine, openRegisterDialog }: UserProps) {
 
     return (
       <div className="nickname">
-        {user.name || 'Anon'} <FontAwesomeIcon icon={faUser} />
+        {user.name || "Anon"} <FontAwesomeIcon icon={faUser} />
       </div>
     );
   } else {
@@ -62,7 +62,7 @@ function Header({
 
   const touchStart = () => {
     longclickTimerRef.current = setTimeout(() => {
-			openAdminDialog();
+      openAdminDialog();
       longclickTimerRef.current = null;
     }, 2000);
   };
@@ -76,17 +76,15 @@ function Header({
 
   return (
     <>
-      <header className={`accent1 ${style}`}>
+      <header
+        className={`accent1 ${style}`}
+        onTouchStart={touchStart}
+        onTouchEnd={touchEnd}
+        onMouseDown={touchStart}
+        onMouseUp={touchEnd}
+      >
         <div className="title">
-          <h1
-            className="title"
-            onTouchStart={touchStart}
-            onTouchEnd={touchEnd}
-            onMouseDown={touchStart}
-            onMouseUp={touchEnd}
-          >
-            Hahnenschwanz
-          </h1>
+          <h1 className="title">Hahnenschwanz</h1>
         </div>
         <div className="userinfo">
           <UserInfo
@@ -102,7 +100,7 @@ function Header({
         title="Becher registrieren"
         onDismiss={() => setRegister(false)}
       >
-        <Register cupId={cupId || ''} />
+        <Register cupId={cupId || ""} />
       </Dialog>
     </>
   );

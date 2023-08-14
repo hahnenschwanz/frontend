@@ -48,7 +48,8 @@ const mockCocktails: Cocktail[] = [
   {
     id: "5",
     name: "Desire",
-    imageUrl: "",
+    imageUrl:
+      "https://www.thecocktaildb.com/images/media/drink/lijtw51551455287.jpg",
     alcoholic: true,
     tags: ["Bitter", "Fruchtig", "Sauer"],
     ingredients: [],
@@ -57,7 +58,8 @@ const mockCocktails: Cocktail[] = [
   {
     id: "6",
     name: "Swimming Pool",
-    imageUrl: "",
+    imageUrl:
+      "https://www.thecocktaildb.com/images/media/drink/lijtw51551455287.jpg",
     alcoholic: true,
     tags: ["Bitter", "Fruchtig", "Sauer", "Sahne"],
     ingredients: [
@@ -80,7 +82,7 @@ const getCocktails: (
     return mockCocktails;
   }
   try {
-		const response = await fetch("/api/cocktail");
+    const response = await fetch("/api/cocktail");
     if (!response.ok) {
       const body = await response.text();
       throw new Error(
@@ -103,13 +105,13 @@ const updateCocktail: (
     return cocktail;
   }
   try {
-		const response = await fetch("/api/cocktail", {
-			method: "POST",
-			headers: {
-				"Content-Type": "appliation/json",
-			},
-			body: JSON.stringify(cocktail),
-		});
+    const response = await fetch("/api/cocktail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "appliation/json",
+      },
+      body: JSON.stringify(cocktail),
+    });
     if (!response.ok) {
       const body = await response.text();
       throw new Error(

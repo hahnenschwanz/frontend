@@ -104,11 +104,6 @@ function Filter({ tags, setFilter, setResetFilter }: FilterProps) {
           />
         ))}
       </div>
-      {/*
-				<span className="more-filters">
-					<FontAwesomeIcon icon={faFilter} size="2x" color="var(--accent2)" />
-				</span>
-			*/}
     </section>
   );
 }

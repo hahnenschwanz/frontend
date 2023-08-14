@@ -8,7 +8,6 @@ dialog {
   transition-timing-function: ease-in;
   transform: scale(0.1);
 
-  /* border-color: var(--accent1); */
   border-width: 0;
   border-radius: var(--radius);
 
@@ -28,13 +27,13 @@ dialog::backdrop {
 dialog > div {
   inline-size: 100%;
   block-size: 100%;
-  padding: var(--s3) var(--s4);
+  padding: var(--s2) 10%;
 
-	max-inline-size: 50vw;
-
-  /* text-align: center; */
+	inline-size: 600px;
+	max-inline-size: min(600px, 90vw);
 
   display: flex;
+	gap: var(--s3);
   flex-direction: column;
   align-items: center;
 }
@@ -48,7 +47,7 @@ dialog .close {
 }
 
 dialog h1 {
-  margin-bottom: var(--s2);
+	text-align: center;
 	margin-inline: var(--s3);
 }
 
