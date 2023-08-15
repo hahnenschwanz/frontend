@@ -108,7 +108,7 @@ const updateCocktail: (
     const response = await fetch("/api/cocktail", {
       method: "POST",
       headers: {
-        "Content-Type": "appliation/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(cocktail),
     });

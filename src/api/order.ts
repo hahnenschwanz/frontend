@@ -24,7 +24,7 @@ const order: (
     const response = await fetch("/api/order", {
       method: "POST",
       headers: {
-        "Content-Type": "appliation/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(cocktailId),
     });
