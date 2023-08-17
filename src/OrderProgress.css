@@ -23,8 +23,7 @@
   margin-block-start: var(--s2);
 	margin-inline-end: var(--s3);
   flex: 0 0 auto;
-  filter: drop-shadow(2px 2px) drop-shadow(-2px 2px) drop-shadow(2px -2px)
-    drop-shadow(-2px -2px);
+	border: var(--border) solid var(--bg);
 	border-radius: 50%;
 }
 
