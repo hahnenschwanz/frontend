@@ -41,7 +41,6 @@
   display: flex;
   flex-direction: row;
   gap: var(--s3);
-  min-inline-size: 30vw;
   align-items: flex-start;
 }
 
