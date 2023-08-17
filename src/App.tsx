@@ -65,7 +65,7 @@ function App() {
 
   const event = process.env.REACT_APP_MOCK
     ? mockMachineEvent(setError)
-    : machineEvent(setError);
+    : machineEvent(setError, isMachine);
 
   useEffect(() => {
     if (event === null) {
@@ -78,10 +78,10 @@ function App() {
     } else if (event.type === 'OrderChange') {
       const orderChange = event.body as OrderChangeEvent;
       setOrderState(
-        orderChange.order === null
+        orderChange.cocktail === null
           ? null
           : {
-              cocktailId: orderChange.order.cocktailId,
+              cocktailId: orderChange.cocktail,
               progress: orderChange.progress || 0,
             }
       );

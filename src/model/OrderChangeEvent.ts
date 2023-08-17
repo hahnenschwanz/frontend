@@ -1,6 +1,6 @@
-import { Order } from './Order';
+import { CocktailId } from "./Cocktail";
 
 export default interface OrderChangeEvent {
-  order: Order | null;
+  cocktail: CocktailId | null;
   progress: number | null;
 }

@@ -43,7 +43,7 @@ const useMockMachineEvent: (
         setMockMessage({
           type: "OrderChange",
           body: {
-            order: mockOrder,
+            cocktail: null,
             progress: mockProgress,
           },
         });
@@ -60,7 +60,7 @@ const useMockMachineEvent: (
           setMockMessage({
             type: "OrderChange",
             body: {
-              order: mockOrder,
+              cocktail: mockOrder?.cocktailId || null,
               progress: mockProgress,
             },
           });
@@ -69,7 +69,7 @@ const useMockMachineEvent: (
         setMockMessage({
           type: "OrderChange",
           body: {
-            order: mockOrder,
+            cocktail: mockOrder?.cocktailId,
             progress: mockProgress,
           },
         });
@@ -81,8 +81,9 @@ const useMockMachineEvent: (
 };
 
 const useMachineEvent: (
-  onError: (error: Error) => void
-) => MachineEvent | null = (setError: (error: Error) => void) => {
+  onError: (error: Error) => void,
+  isMachine: boolean
+) => MachineEvent | null = (setError, isMachine) => {
   const wsScheme = window.location.protocol === "https:" ? "wss://" : "ws://";
   const { lastJsonMessage } = useWebSocket(
     `${wsScheme}${window.location.host}/api/events`,
@@ -104,7 +105,8 @@ const useMachineEvent: (
         console.error("Websocket-Verbindung fehlgeschlagen");
         setError(new Error("Problem mit der Websocket-Verbindung"));
       },
-    }
+    },
+    isMachine
   );
   return lastJsonMessage as any as MachineEvent | null;
 };
