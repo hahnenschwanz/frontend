@@ -113,12 +113,12 @@ const messages = [
   "Dann hat es BOOM gemacht",
   "Trust me I'm an engineer",
   "OOOOkay, letsgo!",
-  "Bitte Pin eingen"
+  "Bitte Pin eingen",
   "Einmal einsteigen bitte",
   "Bitte lächeln",
-  "Verbinde zum Notruf..."
-  "Selfie wird hochgeladen"
-  "Alterskontrolle 🛂 Bitte Ausweis vorzeigen"
+  "Verbinde zum Notruf...",
+  "Selfie wird hochgeladen",
+  "Alterskontrolle 🛂 Bitte Ausweis vorzeigen",
   "42",
   "There is no spoon",
   "I'm batman",
