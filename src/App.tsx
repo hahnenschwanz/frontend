@@ -107,8 +107,8 @@ function App() {
   return (
     <>
       <Header
-        cupId={cupId}
-        user={user}
+        cupId={error == null ? cupId : null}
+        user={error == null ? user : null}
         isMachine={isMachine}
         style={
           error !== null
