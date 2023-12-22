@@ -65,6 +65,6 @@
   block-size: 100%;
   min-block-size: 60px;
   background-color: var(--accent1);
-  transition: inline-size 8s ease;
+  transition: inline-size 22s ease;
   border-radius: var(--radius);
 }
