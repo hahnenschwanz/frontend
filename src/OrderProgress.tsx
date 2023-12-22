@@ -56,6 +56,11 @@ function OrderProgress({ cocktail, progress, abortOrder }: OrderProgressProps) {
 export default OrderProgress;
 
 const messages = [
+  "Alles Gute zum Geburtstag!",
+  "Alles Gute zum Geburtstag!",
+  "Alles Gute zum Geburtstag!",
+  "Alles Gute zum Geburtstag!",
+  "Alles Gute zum Geburtstag!",
   "Wer das liest ist doof",
   "Cocktail wird gemischt",
   "Schlucken nicht spucken",
