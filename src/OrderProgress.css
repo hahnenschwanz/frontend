@@ -46,6 +46,10 @@
   font-size: 2rem;
 }
 
+.large-message {
+	font-size: 2em;
+}
+
 .progress-container {
   inline-size: 100%;
 	display: flex;

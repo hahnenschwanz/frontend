@@ -10,6 +10,10 @@ interface OrderProgressProps {
   abortOrder: () => void;
 }
 
+const containsPlainText: (message: string) => boolean = (message: string) => {
+  return /[a-zA-Z0-9.-]/.test(message);
+};
+
 function OrderProgress({ cocktail, progress, abortOrder }: OrderProgressProps) {
   const randomMesssage = () => {
     return messages[Math.trunc(Math.random() * messages.length)];
@@ -33,7 +37,9 @@ function OrderProgress({ cocktail, progress, abortOrder }: OrderProgressProps) {
         </div>
       </div>
       <div className="state">
-        <span>{message}</span>
+        <span className={containsPlainText(message) ? "" : "large-message"}>
+          {message}
+        </span>
         <div className="progress-container">
           <button className="accent-error bordered" onClick={abortOrder}>
             Stopp <FontAwesomeIcon icon={faXmark} size="lg" />
