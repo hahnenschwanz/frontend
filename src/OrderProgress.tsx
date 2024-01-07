@@ -23,7 +23,7 @@ function OrderProgress({ cocktail, progress, abortOrder }: OrderProgressProps) {
   useEffect(() => {
     const interval = setInterval(() => {
       setMessage(randomMesssage());
-    }, 14000);
+    }, 21000);
     return () => clearInterval(interval);
   }, []);
 
