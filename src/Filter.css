@@ -17,9 +17,9 @@
 }
 
 @media (max-width: 480px) {
-  .tags {
-    display: none;
-  }
+	.filter {
+		flex-wrap: wrap;
+	}
 
   .more-filters {
     margin-inline-start: auto;
